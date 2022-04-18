@@ -69,7 +69,7 @@ NVIDIA 开源了很多的库，这些库实现了通用的计算语言，可以�
 
 ![image-20220418004740182](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418004740182.png)
 
-另一个有趣的结果是,比较了卷积优化的 cuDNN 库和没有经过优化的 直接以 CUDA 写成的代码，在相同的网络相同的硬件相同的 Deep Learning 框架上，CUDA 版代码可以在图表中看到大约有3 倍的速度差距。也就是说优化过的 cuDNN比原生 CUDA版代码快这么多。所以一般来说只要你在 GPU 上写代码,你就应该使用 cuDNN.
+另一个有趣的结果是,比较了卷积优化的 cuDNN 库和没有经过优化的 直接以 CUDA 写成的代码，在相同的网络相同的硬件相同的 Deep Learning 框架上，可以在图表中看到大约有3 倍的速度差距。也就是说优化过的 cuDNN比原生 CUDA版代码快这么多。所以一般来说只要你在 GPU 上写代码,你就应该使用 cuDNN.
 
 ![image-20220418163640703](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418163640703.png)
 
