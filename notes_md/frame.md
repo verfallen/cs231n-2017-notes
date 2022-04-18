@@ -65,6 +65,11 @@ NVIDIA 开源了很多的库，这些库实现了通用的计算语言，可以�
 
 将Intel 的 CPU8-14 和当时性能最好的GPU Pascal Titan X做一下性能比较，下图是测试的结果。更详细的结果可以 [参考这里。](https://github.com/jcjohnson/cnn-benchmarks)对于VGG 16/19 和不同层数的ResNet ，**对于同样的计算任务，CPU耗时是 GPU的65到75倍。**这个测试对CPU有些不公平，因为没有压榨出CPU的最大性能。只是在CPU直接安装运行了torch。
 
-另一个有趣的结果是,比较了卷积优化的 cuDNN 库和没有经过优化的 直接以 CUDA 写成的代码，在相同的网络相同的硬件相同的 Deep Learning 框架上，CUDA 版代码可以在图表中看到大约有3 倍的速度差距。也就是说优化过的 cuDNN比原生 CUDA版代码快这么多。所以一般来说只要你在 GPU 上写代码,你就应该使用 cuDNN.
+
 
 ![image-20220418004740182](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418004740182.png)
+
+另一个有趣的结果是,比较了卷积优化的 cuDNN 库和没有经过优化的 直接以 CUDA 写成的代码，在相同的网络相同的硬件相同的 Deep Learning 框架上，CUDA 版代码可以在图表中看到大约有3 倍的速度差距。也就是说优化过的 cuDNN比原生 CUDA版代码快这么多。所以一般来说只要你在 GPU 上写代码,你就应该使用 cuDNN.
+
+![image-20220418163640703](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418163640703.png)
+
