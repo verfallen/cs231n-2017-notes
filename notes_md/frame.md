@@ -119,3 +119,55 @@ A：从软件层面来说，最有效的事情就是 **设定CPU预读数据**�
 针对第二点，使用深度学习总需要计算损失在权重方向上的梯度，我们希望框架能够自动计算梯度，而不是自己去编写计算梯度的代码、
 
 针对第三点，我们已经知道GPU有强大的并行计算能力，所以我们希望代码能在GPU上高效运行。不需要额外关注硬件细节。
+
+## 计算图实现的不同方式
+
+举个例子，这里有三个输入 X，Y，Z，我们要结合x和 Y来生成 A，然后再结合 a和 z来生成 b，最后我们要对 b 进行求和操作，将值传给最终的结果 C。
+
+![image-20220418210829591](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418210829591.png)
+
+
+下图是使用NumPy实现这个计算图的代码，但是NumPy 只能在CPU端运行，无法利用GPU来进行加速。而且，使用NumPy，必须要自己计算梯度。这很麻烦，所以大部分深度学习框架的目标是 **编写像前向传播的代码，但是能够在GPU上运行，并且自动计算梯度**。
+
+![image-20220418210937579](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418210937579.png)
+
+这是一个在 TensorFlow 中实现相同计算图的例子。其中前向传播的代码与NumPy 相似。但是 TensorFlow 中，只写了一行代码用来计算梯度（见下图），十分方便。
+
+![image-20220418213040259](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213040259.png)
+
+TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf.device()`来实现。左图是在CPU上运行，右图是在GPU上运行。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213245756.png" alt="image-20220418213245756" style="zoom: 67%;" /><img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213234659.png" alt="image-20220418213234659" style="zoom: 67%;" />
+
+用 PyTorch 实现相同的计算图，代码看起来也差不多。首先定义变量开始构建一个计算图（红色框圈住的部分），然后进行前向传播（黄色框圈住的部分），之后计算梯度（蓝色框圈住的部分）。
+
+![image-20220418214050739](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418214050739.png)
+
+在 PyTorch 中切换到 GPU 非常容易，只需要在运行计算之前把数据都转换成 CUDA 数据类型即可。
+
+![image-20220418214504011](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418214504011.png)
+
+通过观察完整的代码可以知道，TensorFlow 和 PyTorch 的代码在前向传播中与Numpy 看起来几乎完全一样。这是因为Numpy 有一个很好的接口，它非常容易用来一起工作。
+
+## 一个两层ReLU 网络的TensorFlow 实例
+
+以下的内容，我们使用一个两层的全连接ReLU 网络作为示例来讲解。输入随机数据，损失使用L2欧氏距离。这个示例并没有做什么有用的事情，仅仅为了讲解用。
+
+从下图可以看出，代码可以分为两个阶段。
+
+1. 定义计算图，这个计算图会运行多次
+2. 将数据输入到计算图中
+
+这个TensorFlow 非常通用的一种模式，**首先构建计算图，然后重复利用运行图模型**。
+
+![image-20220419115258468](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115258468.png)
+
+下图是详细分析构建计算图的部分（红色框的部分）。
+
+**黄色框部分的是构建`placeholder`对象，**我们定义了 X和 Y，W1和w2并且创建了这些变量的`tf.placeholder` 对象。这些变量会成为图的输入结点，这些结点又是图中的入口结点。当我运行图模型时会输入数据，就是将它们放到我们计算图中的输入槽中，这跟内存分配没有一点相似之处，我们只是为计算图建立了输入槽，然后我们用这些输入槽在对应的符号变量上执行各种 TensorFlow 操作以便构建。
+
+**蓝色框部分是进行前向传播，计算y的预测值和L2距离损失。**我们做了一个矩阵乘法，然后使用`tf.maximum` 来实现 ReLU 的非线性特性。接着另用矩阵乘法来计算y的预测值。然后使用用基本的张量运算来计算欧氏距离，计算目标值 y 和预测值之间的 L2损失。需要注意的是，这里的代码没有做任何实质上的运算，只是建立计算图结构来告诉 Tensor Flow当输入真实数据时怎样执行。
+
+**绿色框部分是计算梯度，**在这个示例中就是让 Tensor Flow 去计算损失值在w1和w2方向上的梯度。这里同样没有进行实际的计算，它只是在计算图中加入额外的操作，让计算图算出梯度。
+
+![image-20220419115451727](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115451727.png)
