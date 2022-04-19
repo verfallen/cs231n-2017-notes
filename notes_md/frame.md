@@ -171,3 +171,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 **绿色框部分是计算梯度，**在这个示例中就是让 Tensor Flow 去计算损失值在w1和w2方向上的梯度。这里同样没有进行实际的计算，它只是在计算图中加入额外的操作，让计算图算出梯度。
 
 ![image-20220419115451727](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115451727.png)
+
+下面是将运行计算图详细拆分后的示意图。
+
+![image-20220419120656421](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419120656421.png)
