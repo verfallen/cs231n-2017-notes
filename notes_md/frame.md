@@ -297,3 +297,9 @@ Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，�
 
 上述都是一些基于TensorFlow 的高级封装，其中 keras 和 TFLearn 是第三方库，tf.layers，TF-Slim，tf.contrib.learn 都是TensorFlow 自带的，功能也各不相同。Pretty Tensor 来自于Google 内部，但是它不在TensorFlow 的框架内。Sonnet 来自于DeepMind 团队。这些框架之间不能很好地兼容，只是提供不同的选择。
 
+### TensorBoard
+
+TensorBoard 可以帮助添加一些指示性代码，画出训练过程中的loss 曲线等。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201627646.png" alt="image-20220420162713574" style="zoom: 50%;" />
+
