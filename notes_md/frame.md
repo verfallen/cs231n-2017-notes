@@ -373,3 +373,13 @@ PyTorch 的第三层抽象就是 `Module`。它等价于TensorFlow 中的高级�
 黑色框部分：在模型的所有参数上循环，显式地更新参数值。
 
 ![image-20220421002153175](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002153175.png)
+
+### 优化器
+
+PyTorch 提供了优化操作。下面是一个使用优化器的例子，只需要两步就可以使用优化器。
+
+红色框部分：建立了一个`optimizer` 对象，这里使用的是Adam 优化，然后设置将学习率之类的超参数。
+
+蓝色框部分：在计算了梯度之后，调用`optimizer.step` 即可更新模型中所有的参数
+
+![image-20220421002828451](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002828451.png)
