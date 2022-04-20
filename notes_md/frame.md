@@ -357,3 +357,19 @@ PyTorch 的第二层抽象就是 `Variable` 变量，就是计算图中的结点
 如果想要构建自己的计算梯度函数，可以通过为张量编写 前向和反向计算来实现。这里是一个实现ReLu 函数的例子。红色框是定义函数的部分，黄色框是在训练过程中使用自定义的梯度函数。
 
 ![image-20220420233130947](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420233130947.png)
+
+## Module
+
+PyTorch 的第三层抽象就是 `Module`。它等价于TensorFlow 中的高级封装。不同的是，PyTorch 只用这一个封装器。下图是一个使用Module 的实例。
+
+红色框部分：定义模型为一些层的序列，一个线性层，ReLu 激活，再加一个线性层。
+
+黄色框部分：定义损失函数，使用均方差损失。
+
+蓝色框部分：从这里开始进入了迭代循环体中，我们在模型中进行前向传递，得到预测值，然后计算损失。
+
+绿色框部分：调用 `loss.backward()` 自动计算梯度。
+
+黑色框部分：在模型的所有参数上循环，显式地更新参数值。
+
+![image-20220421002153175](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002153175.png)
