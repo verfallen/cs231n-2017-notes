@@ -314,3 +314,25 @@ PyTorch 内部明确定义了三层抽象：
 
 与TensorFlow 对比，可以将张量视为TensorFlow 中的Numpy 数组，Variable 对应 TensorFlow 中Tensor，Variable,PlaceHolder，它们在计算图中都是节点。Module 对应tf.layer，tf.slim，sonnet 或者其他高级封装的组合。
 
+PyTorch 有一点需要注意，它的抽象层次很高，还有像Module 这样好用的抽象模块， 使用 `nn.module`基本已经足够了，不需要使用更高层的封装。
+
+## Tensor 张量
+
+就像之前说的那样，**PyTorch 中的张量就像是Numpy 的Array一样，只不过它可以在GPU上运行**。下图是只使用Tensor 完成的一个和前面例子相同的两层网络的代码。
+
+红色框部分：为输入x,输出y,权重w1和w2 创建随机数据。
+
+黄色框部分：进行前向传播，计算y的预测值和损失loss
+
+蓝色框部分：进行反向传播，计算梯度
+
+绿色框部分：根据计算出的梯度值，更新权重
+
+![image-20220420221653684](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420221653684.png)
+
+如果要让Tensor 运行在GPU上，只需要使用不同的数据类型即可，将`dtype`修改为：
+
+```
+dtype = torch.cuda.FloatTensor
+```
+
