@@ -336,3 +336,24 @@ PyTorch 有一点需要注意，它的抽象层次很高，还有像Module 这�
 dtype = torch.cuda.FloatTensor
 ```
 
+## Variable 变量
+
+PyTorch 的第二层抽象就是 `Variable` 变量，就是计算图中的结点。一旦从张量转到变量，就建立了计算图，可以自动做梯度和一些其他计算。下图是将张量转变为变量的代码。（原来PPT的代码有bug，修改了一下）
+
+红色框部分：创建随机数据，将他们设置为 Variable。拿x举例，x是一个变量，`x.data` 是一个`Tensor` 类型，`x.grad` 是另一个`Variable`，包含损失对x的梯度，`x.grad.data` 也是梯度，它是Tensor类型。在创建变量时，传入 `requires_grad`用来控制是否需要计算在该变量上的梯度。
+
+黄色框部分：计算前向传播，与之前使用 `Tensor`的操作是一样的。PyTorch `Variable` 类型和 `Tensor` 类型有相同的API，因此任何在 `Tensor`上可以运行的代码，都可以使用`Variable` 进行替换。
+
+蓝色框部分：反向传播，计算梯度。
+
+绿色框部分：更新权重，梯度的值都保存在 `w1.grad.data`中。
+
+
+
+![image-20220420230541759](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420230541759.png)
+
+### 自定义 Autograd 函数     
+
+如果想要构建自己的计算梯度函数，可以通过为张量编写 前向和反向计算来实现。这里是一个实现ReLu 函数的例子。红色框是定义函数的部分，黄色框是在训练过程中使用自定义的梯度函数。
+
+![image-20220420233130947](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420233130947.png)
