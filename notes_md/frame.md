@@ -303,3 +303,14 @@ TensorBoard 可以帮助添加一些指示性代码，画出训练过程中的lo
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201627646.png" alt="image-20220420162713574" style="zoom: 50%;" />
 
+# PyTorch
+
+PyTorch 内部明确定义了三层抽象：
+
++ Tensor，张量，就像 Numpy数组一样，只是一种最基本的数组但它可以在 GPU 上运行。
++ Variable，变量，就是计算图中的节点，这些节点构成计算图，从而可以计算梯度等等
++ Module，模块，它是一个神经网络层可以将这些模组合起来
+  建立一个大的网络
+
+与TensorFlow 对比，可以将张量视为TensorFlow 中的Numpy 数组，Variable 对应 TensorFlow 中Tensor，Variable,PlaceHolder，它们在计算图中都是节点。Module 对应tf.layer，tf.slim，sonnet 或者其他高级封装的组合。
+
