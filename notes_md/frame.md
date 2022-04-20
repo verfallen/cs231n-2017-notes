@@ -229,6 +229,35 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 ### 问题
 
 **<u>Q：为什么不把x和y放入计算图，而把它们设置为Numpy结构？</u>**
-
 A：在上述例子中，每个迭代都重复使用了同样 X和 Y，可以把它们放入计算图中。大多实际情况下，x和y是数据集的mini batch ,它们在每次迭代中是变化的，因此不希望把它们放在计算图中。
+
+**<u>Q：关于updates</u>**
+A：updates 并不是一个真的数值，它返回的是空。但是updates 依赖于new_w1，new_w2，它们存储在GPU中，所以我们可以在GPU中直接更新new_w1和new_w2这些值，不需要进行多余的复制操作。
+
+<u>**Q：`tf.group`返回None吗？**</u>
+A：它返回了TensorFlow 的内部节点操作，我们需要这些节点操作来构建图，当在`session.run` 执行图时,想要从`updates`中得到具体值，然后它返回`None`。
+
+**<u>Q：为什么loss 是一个值，updates 返回None?</u>**
+A：这是updates 工作的方式。loss 之所以是一个值，是因为我们告诉 TensorFlow 想要一个tensor时，就得到一个具体的值。updates 可以看做一种特殊的数据类型，它返回None。
+
+### 优化器
+
+先在我们想要执行不同赋值操作时，需要利用`tf.group `方法，这个方法有点奇怪，TensorFlow 有一个便捷方式来实现，叫做**优化器**。
+
+这里使用了`tf.train.GradientDescentOptimizer()` 这个函数，传入学习率这个参数值，使用RMS prop优化方法，实际有很多其他不同的优化算法。然后调用` optimizer.minimize` 来最小化损失函数，通过这个调用可以知道W1和w2在默认情况下被标记为可训练，因此在这个`optimizer.minimize` 里,会进入计算图并在计算图中添加节点计算w1和w2的损失梯度然后它执行更新、分组、分配，但是最终返回更新值。如果仔细查看代码他们它内部实际上使用了`tf.group`，跟我们之前的代码很相似。
+
+当在循环中运行计算图，采用相同的模式来计算损失值和更新值。
+
+![image-20220420144606280](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201447164.png)
+
+**<u>Q：`tf.global_variables_initializer()` 是什么?</u>**
+A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中，所以我们需要用到这个。当我们创建 tf 的变量时，使用来了`tf.randomnormal`，`tf.global_variables_initializer`就是让
+`tf.random_normal` 进行运行并生成具体的值来初始化这些变量。
+
+### Loss
+
+计算损失的方法有很多，可以使用我们自己的张量来精确的计算损失，TensorFlow 也给出很多便利的函数，能帮住计算一些常见的神经网络的相关结果。
+在下面的例子中，我们使用了`tf.losses.mean_squared_error() `计算 L2 损失。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201505883.png" alt="image-20220420150536789" style="zoom: 50%;" />
 
