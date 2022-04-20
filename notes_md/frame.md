@@ -149,7 +149,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 通过观察完整的代码可以知道，TensorFlow 和 PyTorch 的代码在前向传播中与Numpy 看起来几乎完全一样。这是因为Numpy 有一个很好的接口，它非常容易用来一起工作。
 
-## TensorFlow 
+# TensorFlow 
 
 以下的内容，我们使用一个两层的全连接ReLU 网络作为示例来讲解。输入随机数据，损失使用L2欧氏距离。这个示例并没有做什么有用的事情，仅仅为了讲解用。
 
@@ -162,7 +162,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 ![image-20220419115258468](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115258468.png)
 
-### 构建计算图
+## 构建计算图
 
 下图是详细分析构建计算图的部分（红色框的部分）。
 
@@ -174,7 +174,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 ![image-20220419115451727](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115451727.png)
 
-### 运行计算图
+## 运行计算图
 
 下面是将运行计算图部分拆分后的示意图。此时我们已经完成了计算图的构建，
 
@@ -186,7 +186,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 ![image-20220419120656421](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419120656421.png)
 
-### 训练网络
+## 训练网络
 
 至此，我们完成了一次正向和反向的传播运算。如果想要训练网络，需要添加如下红色框圈住的代码。我们用循环实现多次运行计算图，每次循环分为四步走。
 
@@ -200,7 +200,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 ![image-20220419161219669](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191612705.png)
 
-### 优化
+## 优化
 
 但这里有一个问题，当我们每次执行计算图进行前向传播时，我们将权重输入到计算图中，当计算图执行完毕我们会得到梯度值。权重是以Numpy 的形式保存，这意味着我们每次运行图的时候，我们必须复制权重，从Numpy数组格式中到 TehsorFlow中的格式才能得到梯度。输出的梯度又需要转为Numpy 格式才能进行更新权重的计算。这看起来不是个大问题但是，我们曾谈到 CPU 钳 GPU 之间的传输瓶颈，要在 CPU 和 GPU 之间进行数据复制非常耗费资源，所以如果你的网络非常大，权重值和梯度值非常多的时候，这样做就很耗费资源并且很慢。
 
@@ -226,7 +226,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 ![image-20220419201206221](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204192012280.png)
 
-### 问题
+## 提问
 
 **<u>Q：为什么不把x和y放入计算图，而把它们设置为Numpy结构？</u>**
 A：在上述例子中，每个迭代都重复使用了同样 X和 Y，可以把它们放入计算图中。大多实际情况下，x和y是数据集的mini batch ,它们在每次迭代中是变化的，因此不希望把它们放在计算图中。
@@ -240,7 +240,7 @@ A：它返回了TensorFlow 的内部节点操作，我们需要这些节点操�
 **<u>Q：为什么loss 是一个值，updates 返回None?</u>**
 A：这是updates 工作的方式。loss 之所以是一个值，是因为我们告诉 TensorFlow 想要一个tensor时，就得到一个具体的值。updates 可以看做一种特殊的数据类型，它返回None。
 
-### 优化器
+## 优化器
 
 先在我们想要执行不同赋值操作时，需要利用`tf.group `方法，这个方法有点奇怪，TensorFlow 有一个便捷方式来实现，叫做**优化器**。
 
@@ -254,14 +254,14 @@ A：这是updates 工作的方式。loss 之所以是一个值，是因为我们
 A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中，所以我们需要用到这个。当我们创建 tf 的变量时，使用来了`tf.randomnormal`，`tf.global_variables_initializer`就是让
 `tf.random_normal` 进行运行并生成具体的值来初始化这些变量。
 
-### Loss
+## Loss
 
 计算损失的方法有很多，可以使用我们自己的张量来精确的计算损失，TensorFlow 也给出很多便利的函数，能帮住计算一些常见的神经网络的相关结果。
 在下面的例子中，我们使用了`tf.losses.mean_squared_error() `计算 L2 损失。
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201505883.png" alt="image-20220420150536789" style="zoom: 50%;" />
 
-### Layers
+## Layers
 
 另一个繁琐的地方是我们必须明确定义输入，定义权重 ，然后像使用矩阵乘法一样，在正向传播中将它们链接在一起。在这个例子中我们其实没有在网络层中放入偏差，在实际的训练中我们还必须初始化偏差，我们必须让偏差保持正确的形式，才能进行计算。因此不得不传播矩阵乘法的输出偏差，这种写法很繁琐。一旦使用卷积层，批量规范层或者其他类型的层，更麻烦了。TensorFlow 的高级库可以处理这些细节。其中一个例子就是 **`tf.layers`**。
 
@@ -274,7 +274,7 @@ A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中
 **<u>Q：`xavier_initializer` 的默认设置是不是一个特定的分布？</u>**
 A：我确定它有一些默认设置，但不确定具体是什么，需要查看一下具体的相关文档。这是一个合理的分布策略，如果实际上运行这段代码，它的收敛速度比前一个要快得多，因为它的初始化取值更好。
 
-### Keras
+## Keras
 
 Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，并且在后端处理建立的计算图。Keras 也支持 Theano 作为后端。
 
@@ -284,7 +284,7 @@ Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，�
 
 ![image-20220420160954984](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201609067.png)
 
-### 其他基于TensorFlow 的高级封装
+## 其他基于TensorFlow 的高级封装
 
 + Keras (https://keras.io/) 
 + TFLearn (http://tflearn.org/) 
@@ -297,7 +297,7 @@ Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，�
 
 上述都是一些基于TensorFlow 的高级封装，其中 keras 和 TFLearn 是第三方库，tf.layers，TF-Slim，tf.contrib.learn 都是TensorFlow 自带的，功能也各不相同。Pretty Tensor 来自于Google 内部，但是它不在TensorFlow 的框架内。Sonnet 来自于DeepMind 团队。这些框架之间不能很好地兼容，只是提供不同的选择。
 
-### TensorBoard
+## TensorBoard
 
 TensorBoard 可以帮助添加一些指示性代码，画出训练过程中的loss 曲线等。
 
