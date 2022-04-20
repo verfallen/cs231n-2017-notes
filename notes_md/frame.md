@@ -149,7 +149,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 通过观察完整的代码可以知道，TensorFlow 和 PyTorch 的代码在前向传播中与Numpy 看起来几乎完全一样。这是因为Numpy 有一个很好的接口，它非常容易用来一起工作。
 
-## 一个两层ReLU 网络的TensorFlow 实例
+## TensorFlow 
 
 以下的内容，我们使用一个两层的全连接ReLU 网络作为示例来讲解。输入随机数据，损失使用L2欧氏距离。这个示例并没有做什么有用的事情，仅仅为了讲解用。
 
@@ -274,7 +274,7 @@ A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中
 **<u>Q：`xavier_initializer` 的默认设置是不是一个特定的分布？</u>**
 A：我确定它有一些默认设置，但不确定具体是什么，需要查看一下具体的相关文档。这是一个合理的分布策略，如果实际上运行这段代码，它的收敛速度比前一个要快得多，因为它的初始化取值更好。
 
-## Keras
+### Keras
 
 Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，并且在后端处理建立的计算图。Keras 也支持 Theano 作为后端。
 
@@ -283,3 +283,17 @@ Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，�
 红色框部分构建了一个序列层的模型，黄色框部分构建了优化器对象，绿色框部分调用了`model.compile` ,就是在这里后端建立了计算图。蓝色框部分，调用`model.fit`自动完成了整个训练过程。这期间，不需要知道后端具体是怎么工作的。
 
 ![image-20220420160954984](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201609067.png)
+
+### 其他基于TensorFlow 的高级封装
+
++ Keras (https://keras.io/) 
++ TFLearn (http://tflearn.org/) 
++ TensorLayer (http://tensorlayer.readthedocs.io/en/latest/
++ tf.layers (https://www.tensorflow.org/api_docs/python/tf/layers) 
++ TF-Slim (https://github.com/tensorflow/models/tree/master/inception/inception/slim)
++ tf.contrib.learn (https://www.tensorflow.org/get_started/tflearn) 
++ Pretty Tensor (https://github.com/google/prettytensor) 
++ Sonnet (https://github.com/deepmind/sonnet)
+
+上述都是一些基于TensorFlow 的高级封装，其中 keras 和 TFLearn 是第三方库，tf.layers，TF-Slim，tf.contrib.learn 都是TensorFlow 自带的，功能也各不相同。Pretty Tensor 来自于Google 内部，但是它不在TensorFlow 的框架内。Sonnet 来自于DeepMind 团队。这些框架之间不能很好地兼容，只是提供不同的选择。
+
