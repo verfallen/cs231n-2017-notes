@@ -420,3 +420,14 @@ DataLoader 可以帮助建立分批处理，重排数据，还可以使用多线
 
 Visdom包可以让你可视化损失，输出日志。就功能来说，它类似于 TensorBoard。但是TensorBoad 可以可视化计算图的结果，Visdom 没有这个功能。
 
+## Torch VS PyTorch
+
+PyTorch 是Torch 的更新，它们共享了很多东西，比如C语言去用CPU计算Tensor。但是它们也有很多不同之处。
+
+- Torch 基于Lua，PyTorch 基于 Python。
+- Torch没有 autograd，写复杂模型可能需要自己去造轮子。PyTorch 有 autograd，写复杂模型更容易。
+- Torch 比较旧，也比较稳定，很容易能找到示例代码。
+  PyTorch 比较新，示例代码比较少。（注：这是相对2017年来说的）
+- 速度方面，两者差不多。
+
+在新项目中，倾向于使用PyTorch。
