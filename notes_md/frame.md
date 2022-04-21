@@ -409,3 +409,9 @@ DataLoader 可以帮助建立分批处理，重排数据，还可以使用多线
 黄色框部分：迭代DataLoader 对象，每次迭代的过程中产生一批数据，然后在其内部重排，多线程加载数据。
 
 ![image-20220421141841052](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211418129.png)
+
+## 预训练模型
+
+在PyTorch 中使用预训练模型十分简单。以使用一个预训练的 `alexnet` 为例，只需要一行代码，就可以得到预训练模型。更多关于 `torchvision`的内容可以 [参考这里](https://github.com/pytorch/vision)。
+
+![image-20220421143605701](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211436763.png)
