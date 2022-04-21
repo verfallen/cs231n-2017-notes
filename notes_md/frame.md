@@ -383,3 +383,19 @@ PyTorch 提供了优化操作。下面是一个使用优化器的例子，只需
 蓝色框部分：在计算了梯度之后，调用`optimizer.step` 即可更新模型中所有的参数
 
 ![image-20220421002828451](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002828451.png)
+
+### 自定义Module
+
+一个模块只是神经网络中的一层，它可以 包含其他的模块。下图是一个自定义的模块，重现了上述两层网络的例子。
+
+红色框部分：自定义一个两层的网络，继承自 `torch.nn.Module`。
+
+黄色框部分：是这个类的初始化方法，可以看到，该类中定义了两层的线性网络，对应类中的 `linear1` 和 `linear2`。
+
+蓝色框部分：前向传播，在对 Variable 类型使用内部模块和autograd 操作，计算网络的输出。前向传播的部分具体包括：将输入作为一个变量，将其传给 `self.linear1`作为第一层，然后使用 autograd 操作 `clamp` 函数去计算 relu ,再将输出传给 linear2，得到预测值。
+
+绿色框部分：建立并训练一个模型实例。
+
+
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211347474.png" alt="image-20220421134747288" style="zoom: 33%;" />
