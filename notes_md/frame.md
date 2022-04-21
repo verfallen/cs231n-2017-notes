@@ -399,3 +399,13 @@ PyTorch 提供了优化操作。下面是一个使用优化器的例子，只需
 
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211347474.png" alt="image-20220421134747288" style="zoom: 33%;" />
+
+## DataLoader 
+
+DataLoader 可以帮助建立分批处理，重排数据，还可以使用多线程。所以DataLoader 可以打包数据，并提供一些接口。当你需要执行你自己的数据的时候，会需要编写自己的Dataset 类。这样可以从指定的来源，读取特殊类型的数据，然后用Dataloader 打包并训练。下图是一个使用DataLoder 的实例。
+
+红色框部分： 创建DataLoader对象
+
+黄色框部分：迭代DataLoader 对象，每次迭代的过程中产生一批数据，然后在其内部重排，多线程加载数据。
+
+![image-20220421141841052](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211418129.png)
