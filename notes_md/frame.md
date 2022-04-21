@@ -415,3 +415,8 @@ DataLoader 可以帮助建立分批处理，重排数据，还可以使用多线
 在PyTorch 中使用预训练模型十分简单。以使用一个预训练的 `alexnet` 为例，只需要一行代码，就可以得到预训练模型。更多关于 `torchvision`的内容可以 [参考这里](https://github.com/pytorch/vision)。
 
 ![image-20220421143605701](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211436763.png)
+
+## Visdom
+
+Visdom包可以让你可视化损失，输出日志。就功能来说，它类似于 TensorBoard。但是TensorBoad 可以可视化计算图的结果，Visdom 没有这个功能。
+
