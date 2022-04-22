@@ -19,3 +19,10 @@ LeNet可以看作是卷积网络的第一个实例，并且在实际应用中取
 下图就是 LeNet 的结构，输入一个图片，使用步长为1大小为5x5的卷积核，接下来重复卷积和池化操作，最后有一些全连接层。LeNet在数字识别领域的应用方面取得了成功
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204221352033.png" alt="image-20220422135217947" style="zoom:67%;" />
+
+# AlexNet
+
+AlexNet是第一个在 ImageNet 的分类比赛中获得成功的大型卷积神经网络。AlexNet 在2012年参赛，之前的非深度学习架构相比，它大幅提高了识别准确率。从此开始了大规模对卷积神经网络的
+研究和应用。
+
+![image-20220422144714052](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204221447154.png)
