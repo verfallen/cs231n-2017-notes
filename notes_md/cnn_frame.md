@@ -12,3 +12,10 @@
 
 会讨论一些特定类型的卷积神经网络架构，在研究和实际应用中使用得很广泛。深入探讨那些 ImageNet大赛获胜者用的最多的神经网络架构，按照时间顺序它们分别是是 AlexNet，VGGNet，GoogleNet 和 ResNet。然后简单介绍些其他的目前并不常用的架构。
 
+# LeNet
+
+LeNet可以看作是卷积网络的第一个实例，并且在实际应用中取得成功。
+
+下图就是 LeNet 的结构，输入一个图片，使用步长为1大小为5x5的卷积核，接下来重复卷积和池化操作，最后有一些全连接层。LeNet在数字识别领域的应用方面取得了成功
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204221352033.png" alt="image-20220422135217947" style="zoom:67%;" />
