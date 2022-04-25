@@ -386,3 +386,18 @@ Deep Networks with Stochastic Depth
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251502931.png" alt="image-20220425150222845" style="zoom:50%;" />
 
+## 一些跟ResNet 媲美的网络
+
+### FractalNet 
+
+来自于论文 [FractalNet: Ultra-Deep Neural Networks without Residuals](https://arxiv.org/abs/1605.07648)
+
+它的观点是
+
++ 引入残差可能并不是必须的，关键在于有效地从浅层网络转型为深层网络
++ 用了一种分形结构，里面的各层都以分形的形式存在，因此同时存在浅层和深层路径到达输出
++ 通过抛弃子路径的方式来来训练，具有dropout 特色
++ 在测试的时候再使用整个分形网络，研究显示运行效果很不错
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251503771.png" alt="image-20220425150325456" style="zoom: 50%;" />
+
