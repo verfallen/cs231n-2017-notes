@@ -415,3 +415,17 @@ Deep Networks with Stochastic Depth
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251528813.png" alt="image-20220425152859690" style="zoom:50%;" />
 
+### SqueezeNet
+
+来自于论文 [AlexNet-level Accuracy With 50x Fewer Parameters and <0.5Mb Model Size]()
+
+它关注的是高效网络，由一个个fire 模块组成。
+
++ 每个fire 模块都含有一个squeeze 层(挤压层）和许多1x1 的卷积核，接着传递给一个扩大层，含有一些1x1,3x3 的卷积核
++ 该网络在ImageNet 上能达到AlexNet 的准确率，参数却只有1/50
++ 整个网络被压缩为仅仅0.5 M，仅有 Alex Net的1/500
+
+![image-20220425153541887](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251535036.png)
+
+如何有效压缩网络大小，这可以作为未来的方向。
+
