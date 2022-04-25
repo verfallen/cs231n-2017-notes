@@ -368,3 +368,12 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 
 ![image-20220425145517472](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455584.png)
 
+### ResNexT 
+
+这个网络来自于论文 [Aggregated Residual Transformations for Deep Neural Networks]()，这同样是ResNet 作者的改进，有以下值得关注的内容：
+
++ 为了解决宽度问题，在每个残差模块内建立多分支。这些分支被称为“基数”(cardinality )
++ 与inception 模块也有些相似，用了一些平行运算
+
+![image-20220425145542919](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455031.png)
+
