@@ -401,3 +401,17 @@ Deep Networks with Stochastic Depth
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251503771.png" alt="image-20220425150325456" style="zoom: 50%;" />
 
+### Dense CNN
+
+密集连接卷积网络，来自于论文 [Densely Connected Convolutional Networks](https://www.icst.pku.edu.cn/zlian/docs/20181023162736873917.pdf)
+
+- 密集区块，区块内每层都与其后所有层，以前馈的形式连接。因此区块的输入也是对其他各卷积层的输入，计算每一个卷积输出，这些输出又与其后所有的层都相连。最后将这些值
+  集中起来共同作为卷积层的输入
+- 主要结论就是这一方法能缓解消失梯度的问题，因为有密度很高的连接
+- 能强化特征图的传递，也是因为连接多。
+- 特征的再利用，在训练时，每一个特征图都在许多层作为输入，重复使用多次
+
+下面左图是一个Dense 块，右图是 Dense CNN 的结构。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251528813.png" alt="image-20220425152859690" style="zoom:50%;" />
+
