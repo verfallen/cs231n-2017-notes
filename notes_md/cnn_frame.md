@@ -377,3 +377,12 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 
 ![image-20220425145542919](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455031.png)
 
+### 使用随机深度
+
+Deep Networks with Stochastic Depth
+
+当网络越来越深往往就会碰到梯度消失问题，因此作者的初衷就是在训练时让网络变得更“浅”。
+随机抛弃一组子层集，在测试阶段再使用完整的训练好的深度网络。这里的抛弃权重只把它们作为恒等连接，网络在训练时变得更短了，梯度可以更好地反向传播，也稍微高效一些。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251502931.png" alt="image-20220425150222845" style="zoom:50%;" />
+
