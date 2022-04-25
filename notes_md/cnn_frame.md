@@ -342,3 +342,16 @@ NiN 提出了一个 MIP 卷积层。
 NiN 的结构中将多个MIP层堆叠起来。
 
 ![image-20220425143416555](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251434691.png)
+
+## 一些基于ResNet的改进
+
+### 在深层ResNet 中的恒等映射
+
+ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Networks](https://arxiv.org/abs/1603.05027) ，有以下内容值得关注：
+
++ 改进了ResNet 块的设计
++ 实现一种更直接的路径，无需穿过整个网络，对恒等映射有更好的激活
++ 他们证明了这个模块的性能更好
+
+![image-20220425144228236](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251442313.png)
+
