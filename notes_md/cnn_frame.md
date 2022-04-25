@@ -327,5 +327,18 @@ ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅�
 
 ![image-20220425141216338](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251412125.png)
 
+# 其他的CNN架构
 
+## Network in Network (NiN)
 
+NiN 提出了一个 MIP 卷积层。
+
++ MLP卷积层可以看成是在传统CNN卷积层中包含一个微型的多层网络，它能够局部图像块计算更多的抽象特征。
++ MLP 使用了多层感知机。
++ 它是GoogleNet 和 ResNet 中瓶颈层的前身
+
+![image-20220425142936356](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251429497.png)
+
+NiN 的结构中将多个MIP层堆叠起来。
+
+![image-20220425143416555](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251434691.png)
