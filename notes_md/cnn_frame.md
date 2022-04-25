@@ -355,3 +355,16 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 
 ![image-20220425144228236](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251442313.png)
 
+### 更宽的残差网络
+
+这种思路来自于论文[Wide Residual Networks](https://arxiv.org/abs/1605.07146) ，有以下内容：
+
++ 认为残差量是重要的影响因素，深度不是。
++ 使用的是更宽的残差模块，这就意味着在每个转换层都会有更多的卷积核，每一层都用 F*K的卷积核来代替。
++ 结果显示让每层变得更宽，仅用50 层的宽残差网络表现就能优于ResNet原来的152层网络。
++ 使用同样数量的参数，它计算效率更高。因为可以使用并行计算。如果只增加深度，因为计算必须有次序，不能使用并行计算。但是增加更多的卷积核可以使用并行计算。
+
+这一论文中旨在比较宽度和深度以及残差连接所做的贡献。
+
+![image-20220425145517472](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455584.png)
+
