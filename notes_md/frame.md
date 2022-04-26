@@ -42,7 +42,7 @@ CPU 跟 GPU 还有一点需要指明的是内存的概念。
 + CPU 有高速缓存但是相对比较小，而且CPU 的大部分内存都是依赖于系统内存。在一台典型的消费级台式机上- RAM -的容量可能有8，16或者32GB。
 + GPU 中内置了 RAM。 GPU 与系统RAM通信时，会带来产重的性能瓶颈，因此GPU 基本上拥有自己相对较大的内存。Titan XP 它的本地内存有12个GB。GPU 也有它自己的缓存系统，所以在 GPU的12个 G和GPU 核之间有多级缓存。它跟 CPU 的多层缓存类似。
 
-![image-20220416232211582](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220416232211582.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220416232211582.png" alt="image-20220416232211582" style="zoom:67%;" />
 
 ## GPU 的并行能力
 
@@ -52,7 +52,7 @@ CPU 对于通信处理来说是友好的。而 GPU 更擅长于处理高度并�
 
 如果使用CPU来进行矩阵乘法的运算，可能会进行串行计算，就是对每个元素一个个进行计算。现在，CPU拥有多核，也可是进行矢量运算，但是针对并行任务，CPU通常表现得更好。特别是当矩阵规模非常庞大的时候。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418000318804.png" alt="image-20220418000318804"  />
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418000318804.png" alt="image-20220418000318804" style="zoom:50%;" />
 
 ## GPU 计算架构
 
@@ -67,11 +67,11 @@ NVIDIA 开源了很多的库，这些库实现了通用的计算语言，可以�
 
 
 
-![image-20220418004740182](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418004740182.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418004740182.png" alt="image-20220418004740182" style="zoom: 67%;" />
 
 另一个有趣的结果是,比较了卷积优化的 cuDNN 库和没有经过优化的 直接以 CUDA 写成的代码，在相同的网络相同的硬件相同的 Deep Learning 框架上，可以在图表中看到大约有3 倍的速度差距。也就是说优化过的 cuDNN比原生 CUDA版代码快这么多。所以一般来说只要你在 GPU 上写代码,你就应该使用 cuDNN.
 
-![image-20220418163640703](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418163640703.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418163640703.png" alt="image-20220418163640703" style="zoom: 67%;" />
 
 ## CPU和GPU的通信
 
@@ -93,18 +93,18 @@ A：从软件层面来说，最有效的事情就是 **设定CPU预读数据**�
 
 从图上可以发现很有趣的一点是，第一代深度学习框架大多是由学术界完成的。Caffe 来自伯克利，torch 起初由纽约大学维护，后来是与 Facebook 合作维护。Theano 主要由蒙特利尔大学实现。但是下一代深度学习框架全部由工业界产生。Facebook 做了 Caffe2 和 PyTorch，Google 做了 Tensorflow。过去几年里，一个有趣的转变发生了。这些想法从学术界转移到了产业，产业界提出了强大的框架来进行工作。
 
-![image-20220418203043362](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203043362.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203043362.png" alt="image-20220418203043362" style="zoom:67%;" />
 
 ## 计算图
 
 无论何时你进行深度学习，都要考虑构建计算图来计算目标函数。在线性分类器中，数据 X和权重 W进行矩阵乘法，可能使用 hinge loss 损失函数来计算损失，可能会再加一些正则项，将这些不同的操作拼起来成为一些图结构，叫做**计算图**。
 
-![image-20220418203535149](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203535149.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203535149.png" alt="image-20220418203535149" style="zoom:67%;" />
 
 在大型神经网络中，计算图结构非常复杂。有很多不同的层，不同的激活函数，不同的权重，在这个非常复杂的图中。而且你使用像神经图灵机这样的东西，
 得到这些非常疯狂的计算图。因为它们实在是太庞杂了，你甚至不能将其画出来。所以深度学习框架意义重大。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203637611.png" alt="image-20220418203637611"  />
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418203637611.png" alt="image-20220418203637611" style="zoom: 67%;" />
 
 ## 深度学习框架的优点
 
@@ -124,7 +124,7 @@ A：从软件层面来说，最有效的事情就是 **设定CPU预读数据**�
 
 举个例子，这里有三个输入 X，Y，Z，我们要结合x和 Y来生成 A，然后再结合 a和 z来生成 b，最后我们要对 b 进行求和操作，将值传给最终的结果 C。
 
-![image-20220418210829591](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418210829591.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418210829591.png" alt="image-20220418210829591" style="zoom: 67%;" />
 
 
 下图是使用NumPy实现这个计算图的代码，但是NumPy 只能在CPU端运行，无法利用GPU来进行加速。而且，使用NumPy，必须要自己计算梯度。这很麻烦，所以大部分深度学习框架的目标是 **编写像前向传播的代码，但是能够在GPU上运行，并且自动计算梯度**。
@@ -133,11 +133,11 @@ A：从软件层面来说，最有效的事情就是 **设定CPU预读数据**�
 
 这是一个在 TensorFlow 中实现相同计算图的例子。其中前向传播的代码与NumPy 相似。但是 TensorFlow 中，只写了一行代码用来计算梯度（见下图），十分方便。
 
-![image-20220418213040259](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213040259.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213040259.png" alt="image-20220418213040259"  />
 
 TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf.device()`来实现。左图是在CPU上运行，右图是在GPU上运行。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213245756.png" alt="image-20220418213245756" style="zoom: 67%;" /><img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213234659.png" alt="image-20220418213234659" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213245756.png" alt="image-20220418213245756" style="zoom: 80%;" /><img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220418213234659.png" alt="image-20220418213234659" style="zoom: 67%;" />
 
 用 PyTorch 实现相同的计算图，代码看起来也差不多。首先定义变量开始构建一个计算图（红色框圈住的部分），然后进行前向传播（黄色框圈住的部分），之后计算梯度（蓝色框圈住的部分）。
 
@@ -160,7 +160,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 这个TensorFlow 非常通用的一种模式，**首先构建计算图，然后重复利用运行图模型**。
 
-![image-20220419115258468](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115258468.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220419115258468.png" alt="image-20220419115258468" style="zoom:80%;" />
 
 ## 构建计算图
 
@@ -194,11 +194,11 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 2. 结构输出，得到计算出的值
 3. 更新当前权重值
 
-![image-20220419160811876](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191609476.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191609476.png" alt="image-20220419160811876" style="zoom: 67%;" />
 
 如果运行上述的代码并画出损失曲线，会得到这样一张图。随着迭代次数的增加，损失越来越小。网络训练得越来越好。
 
-![image-20220419161219669](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191612705.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191612705.png" alt="image-20220419161219669" style="zoom:67%;" />
 
 ## 优化
 
@@ -206,13 +206,13 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 **TensorFlow 的解决方法就是将w1和 w2 定义为TensorFlow 的变量保存。**变量可以一直存在于计算图中，也正因为如此，需要告诉TensorFlow 它是怎样初始化的。下图展示了将w1和w2 初始化为变量的代码。使用 `tf.random_normal()` 进行初始化操作，同样地，这里不是真正初始化，只是告诉框架到这里该如何做。
 
-![image-20220419164901978](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191649018.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191649018.png" alt="image-20220419164901978" style="zoom:50%;" />
 
 然后更**新权重的部分也要进行改变。**之前我们在计算图之外进行定义权重，计算梯度，以Numpy array 的形式更新权重，在下一次的迭代中使用更新后的权重参数。现在权重被保存在计算图中，更新权重也要在计算图中进行操作。因此，我们使用 `assign` 函数，它能改变计算图中变量的值。这些值在计算图的迭代过程中一直存在。
 
-![image-20220419194843882](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191949610.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204191949610.png" alt="image-20220419194843882" style="zoom:67%;" />
 
-![image-20220419200202878](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204192002018.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204192002018.png" alt="image-20220419200202878" style="zoom:67%;" />
 
 然后开始运行计算图，首先进行了一个全局参数的初始化。然后进行迭代。
 
@@ -224,7 +224,7 @@ TensorFlow的运行可以CPU和GPU上进行切换。如下图所示，使用 `tf
 
 这里有一个小技巧，我们在图中添加一个仿制节点，让仿制节点依赖于new_w1和new_w2。当我们执行计算图时，我们同时计算loss 和这个仿制节点，仿制节点并不返回任何值，当我们执行了更新操作后，我们使用了更新的权重参数值。
 
-![image-20220419201206221](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204192012280.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204192012280.png" alt="image-20220419201206221" style="zoom:67%;" />
 
 ## 提问
 
@@ -248,7 +248,7 @@ A：这是updates 工作的方式。loss 之所以是一个值，是因为我们
 
 当在循环中运行计算图，采用相同的模式来计算损失值和更新值。
 
-![image-20220420144606280](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201447164.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201447164.png" alt="image-20220420144606280" style="zoom:67%;" />
 
 **<u>Q：`tf.global_variables_initializer()` 是什么?</u>**
 A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中，所以我们需要用到这个。当我们创建 tf 的变量时，使用来了`tf.randomnormal`，`tf.global_variables_initializer`就是让
@@ -269,7 +269,7 @@ A：这个是用来初始化w1和w2，这些变量都存在于这个计算图中
 
 可以看到这里调用了两次`tf.layers`去建立了模型，但是不需要自己来处理这些细节。`tf.contrib.layer` 并不是这里唯一的方式，还有很多其他的库。
 
-![image-20220420151755391](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201517488.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201517488.png" alt="image-20220420151755391" style="zoom:67%;" />
 
 **<u>Q：`xavier_initializer` 的默认设置是不是一个特定的分布？</u>**
 A：我确定它有一些默认设置，但不确定具体是什么，需要查看一下具体的相关文档。这是一个合理的分布策略，如果实际上运行这段代码，它的收敛速度比前一个要快得多，因为它的初始化取值更好。
@@ -282,7 +282,7 @@ Keras是一个非常方便的 API，它建立在 Tensor Flow 的基础之上，�
 
 红色框部分构建了一个序列层的模型，黄色框部分构建了优化器对象，绿色框部分调用了`model.compile` ,就是在这里后端建立了计算图。蓝色框部分，调用`model.fit`自动完成了整个训练过程。这期间，不需要知道后端具体是怎么工作的。
 
-![image-20220420160954984](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201609067.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204201609067.png" alt="image-20220420160954984" style="zoom:67%;" />
 
 ## 其他基于TensorFlow 的高级封装
 
@@ -350,13 +350,13 @@ PyTorch 的第二层抽象就是 `Variable` 变量，就是计算图中的结点
 
 
 
-![image-20220420230541759](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420230541759.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420230541759.png" alt="image-20220420230541759" style="zoom: 80%;" />
 
 ### 自定义 Autograd 函数     
 
 如果想要构建自己的计算梯度函数，可以通过为张量编写 前向和反向计算来实现。这里是一个实现ReLu 函数的例子。红色框是定义函数的部分，黄色框是在训练过程中使用自定义的梯度函数。
 
-![image-20220420233130947](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420233130947.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220420233130947.png" alt="image-20220420233130947" style="zoom:80%;" />
 
 ## Module
 
@@ -372,7 +372,7 @@ PyTorch 的第三层抽象就是 `Module`。它等价于TensorFlow 中的高级�
 
 黑色框部分：在模型的所有参数上循环，显式地更新参数值。
 
-![image-20220421002153175](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002153175.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002153175.png" alt="image-20220421002153175" style="zoom:80%;" />
 
 ### 优化器
 
@@ -382,7 +382,7 @@ PyTorch 提供了优化操作。下面是一个使用优化器的例子，只需
 
 蓝色框部分：在计算了梯度之后，调用`optimizer.step` 即可更新模型中所有的参数
 
-![image-20220421002828451](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002828451.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220421002828451.png" alt="image-20220421002828451" style="zoom:80%;" />
 
 ### 自定义Module
 
@@ -408,13 +408,13 @@ DataLoader 可以帮助建立分批处理，重排数据，还可以使用多线
 
 黄色框部分：迭代DataLoader 对象，每次迭代的过程中产生一批数据，然后在其内部重排，多线程加载数据。
 
-![image-20220421141841052](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211418129.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211418129.png" alt="image-20220421141841052" style="zoom: 67%;" />
 
 ## 预训练模型
 
 在PyTorch 中使用预训练模型十分简单。以使用一个预训练的 `alexnet` 为例，只需要一行代码，就可以得到预训练模型。更多关于 `torchvision`的内容可以 [参考这里](https://github.com/pytorch/vision)。
 
-![image-20220421143605701](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211436763.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211436763.png" alt="image-20220421143605701" style="zoom: 50%;" />
 
 ## Visdom
 
@@ -450,7 +450,7 @@ TensorFlow有两个操作阶段，第一步建立计算图，第二步重复运�
 看下图的示例，如果有左边这样的网络 ，卷积和 Re LU的操作一层叠一层，可以通过服用操作来优化，结合卷积和 ReLU，这样可以更有效率地执行。
 目前 不能确定Tensor Flow 的实际使用上图优化情况，但在原则上这是一个优化的机会。
 
-![image-20220421151514029](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211515094.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204211515094.png" alt="image-20220421151514029" style="zoom:67%;" />
 
 **静态图另一个优势在于序列化**。
 静态图一旦建立，在内存中就有相应的数据结构，这代表网络整个结构。**将数据结构在磁盘中序列化，就可以实现用文件将整个网路存下来，在其他地方进行加载。这在一些部署案中是比较实用的。**比如在Python中训练网络（因为比较容易运行），然后将其序列化，部署到 C++ 环境中去。但是在动态图中，因为我们是交叉执行图的建立和执行，如果想复用模型总是需要原来的代码。
