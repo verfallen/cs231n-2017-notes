@@ -46,3 +46,25 @@
 
 <img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261423504.png" alt="image-20220426142336472" style="zoom:50%;" />
 
+# RNN
+
+RNN是**Recurrent Neural Networks，递归神经网络**的简称。
+
+它是用于**处理长度可变的有序数据的一类模型**，让我们可以比较自然地理解模型的不同的架构。**即使对有固定输入大小**
+**和固定输出大小的问题，RNN 也同样很有用。**
+
+举个例子，我们收到了一个固定大小的输入，如一幅图像，要做出分类决策，判断图像中的数字是多少。不是做单一的前向传播，马上做出决策，而是观察图片的各种不同部分之后，做出最终决策，判断数字到底是几。
+
+在这一例子中，输入是图片，输出是分类决策。在这样的情况下
+利用 RNN 网络来处理长度可变的序列数据，也会形成一些有意思的模型。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271213135.png" alt="image-20220427121001478" style="zoom:50%;" />
+
+
+
+有一份论文[ A Recurrent Neural Network For Image Generation”](http://proceedings.mlr.press/v37/gregor15.html)运用了这一想法来生成新的图像。任务是模型来合成
+新的图片，这些图片看上去像之前训练的那些图片相似。
+可以用 RNN 架构来绘制出这些输出图像，大约一次绘制一幅图像。虽然输出是固定尺寸的图像，我们可以让这些模型一直工作
+每次计算出一部分输出，这样就可以用 RNN来完成了。
+
+![image-20220427121950821](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271219098.png)
