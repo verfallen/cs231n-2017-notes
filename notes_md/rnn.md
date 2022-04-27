@@ -40,7 +40,7 @@
 
 输入和输出都是可变的，比如机器翻译，输入英文句子，输出法文句子，英语句子的长度可能与法语句子不同，因此需要模型能够同时容纳输入和输出的长度可变序列。
 
-![image-20220426125606357](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261256406.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261256406.png" alt="image-20220426125606357" style="zoom:50%;" />
 
 另外还有一种，也是多对多，但是输入和输出的长度是相同的。例如一段有序的视频，帧数是一个变量，我们要对该序列中的每个元素做出决策，在输入是视频的情况下，对每一帧都做分类决策。
 
@@ -75,7 +75,7 @@ RNN是**Recurrent Neural Networks，递归神经网络**的简称。
 
 每个 RNN 网络都有这样一个小小的**循环核心单元**，它把 x 作为输入，RNN 有一个**内部隐藏态(internal hidden state )**，这一隐藏态会在 RNN 每次读取新的输入时更新。当模型下一次读取输入时，内部隐藏态会反馈至模型 。因此，就有了这样的模式 ，**读取输入，更新隐藏态，并且生成输出。**
 
-![image-20220427130059858](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271300899.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271300899.png" alt="image-20220427130059858" style="zoom:33%;" />
 
 用公式来表达的话，就是 
 $$
@@ -92,3 +92,38 @@ $$
 h_t = tanh(W_{hh}h_{t-1} + W_{xh}x_t) \\
 y_t = W_{hy}h_t
 $$
+
+## 计算图
+
+### 多对多计算图
+
+当我想到-RNN 时，从两方面来思考它。第一，它有一种隐藏态
+可以循环反馈给自我。这张图有让人疑惑，将这张计算图展开更多的时步，隐藏态里的数据传输流，以及输入，输出，权重的走向就变得更为清晰了。
+
+在第一时步，有初始隐层状态$h_0$，通常情况下$h_0=0$,有输入项 $x_t$，会被代入$f_W$ 函数中，计算得出下一个隐层状态$h_1$。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271434429.png" alt="image-20220427143433393" style="zoom:33%;" />
+
+得到下一个输入项后，重复这个过程。将$h_1$和 $x_2$代入之前的方程$f_W$，得到新的输出项 $h_2$。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271437144.png" alt="image-20220427143756107" style="zoom: 33%;" />
+
+这个过程将会不断重复，直到用完输入序列的输入项$x_t$。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271439242.png" alt="image-20220427143908187" style="zoom: 33%;" />
+
+现在我们可以让这个过程更为清楚一些，将权重矩阵写在我们的计算流程图上。能看到在每个步长中，**使用相同的权重矩阵W**。这个$f_W$ 块，虽然每次接收不同隐藏态和不同的x，但使用相同的$W$ 权重。回想一下反向传播中的梯度流过程，在一张计算图中多次重复使用的相同节点，就在回溯过程中，不断地计算 $d loss/dw$，并最终把所有梯度值加到w 矩阵上。
+如果将反向传播的原理应用到这个模型中，你会得到在每一个时步下计算出的梯度。最终的w 梯度是所有时步下独立计算出的梯度之和。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271447278.png" alt="image-20220427144748230" style="zoom:33%;" />
+
+同样可以直接把 $y_t$写在这张计算图上，这样每个计算步长下输出的$h_t$，作为输入给之后的神经网络，输出该时步下的$y_t$。
+$y_t$ 可以是每个时步的类别得分或是其他类似的东西。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271447190.png" alt="image-20220427144702128" style="zoom: 33%;" />
+
+然后来看损失。在大多数情形下，每一个时步都有一个与输入序列对应的真实标签。这样就可以计算出每个时步下输出相对应的损失值，通常是`softmax` 损失之类。计算这样的损失，需要序列在每个时步下都有与之对应的真实标签。最终的损失值是这整个训练中这些单独的损失值的总和。得到每个时步的损失值，把它们加起来，就得到了最终的损失值。
+
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271451110.png" alt="image-20220427145107030" style="zoom:33%;" />
+
+为了训练这个模型，我们需要计算损失函数在 W 上的梯度。最终的损失值又会回溯到每一个时步的损失，然后每一个时步又会各自计算出在权重 $w$ 上的梯度。它们的总和就是权重$w$的最终梯度。
