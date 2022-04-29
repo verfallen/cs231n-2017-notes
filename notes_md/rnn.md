@@ -67,7 +67,7 @@ RNN是**Recurrent Neural Networks，递归神经网络**的简称。
 可以用 RNN 架构来绘制出这些输出图像，大约一次绘制一幅图像。虽然输出是固定尺寸的图像，我们可以让这些模型一直工作
 每次计算出一部分输出，这样就可以用 RNN来完成了。
 
-![image-20220427121950821](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271219098.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271219098.png" alt="image-20220427121950821" style="zoom:50%;" />
 
 ## 原始循环神经网络
 
@@ -174,7 +174,7 @@ sequence to sequence 模型，比如机器翻译之类的问题。输入一个�
 
 在第一个时步中，网络接收输入h，该输入项会进入到第一个RNN 单元内，之后输出$y_t$，即为网络对组成单词的每个字母做出的预测，也就是它认为接下来最可能出现的的字母。在这个例子，训练的字母序列是hello，那么下一个正确的字母应该输出e，但模型在做的只是预测认为 o 最有可能是下一个字母。这里预测结果就是错误的。可以使用 Softmax 损失函数来度量我们对这些预测结果的不满意程度。下个时步中，输入第二个字母e，重复执行这个过程。将e 表达为一个向量，利用这个新的输入向量以及之前计算出的隐层状态，生成输出一个新的隐层状态。再次做出预测，我们希望模型做出的预测将是 l，模型预测输出的是o，这时候高损失就出现了。不断重复上述过程，用不同的字母序列去训练这个模型，最终它将会学习到基于之前出现过的字符来预测接下来应出现的字符。
 
-![image-20220428135939617](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281359686.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281359686.png" alt="image-20220428135939617" style="zoom:50%;" />
 
 ### 测试阶段
 
@@ -199,7 +199,7 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 
 **假设有一个序列，每个时间步产生一个输出结果，最后计算一些损失值，这就是沿时间的反向传播方法。**在前向传播过程中，沿着时间做前向计算，然后在反向传播过程中，是逆着时间反向计算所有的梯度。这个过程实际上有些麻烦。如果想要训练一个很长的序列，比如我们要训练一个基于维基百科里所有文本的神经网络语言模型，计算过程非常耗时。每次我们计算梯度时，必须做一次前向计算，遍历维基百科的所有文本，然后反向传播每次也会遍历所有文本，并重新计算一次梯度。这个过程非常缓慢，所以模型很难收敛，并且占用非常大的内存。
 
-![image-20220428145812802](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281458836.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281458836.png" alt="image-20220428145812802" style="zoom: 67%;" />
 
 ### 沿时间的截断反向传播
 
@@ -211,4 +211,4 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 当我们在讨论基于大规模数据集训练模型时，使用数据集中所有样本来计算梯度开销非常大，
 可以抽取一小部分样本然后用小样本集的数据来计算。
 
-![image-20220428152946408](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281529462.png)
+<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281529462.png" alt="image-20220428152946408" style="zoom:67%;" />
