@@ -219,6 +219,3 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 
 ![image-20220429235642844](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220429235642844.png)
 
-### 
-
-![image-20220501235805238](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220501235805238.png)
