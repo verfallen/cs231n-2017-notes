@@ -61,3 +61,12 @@
 
 ![image-20220504003923986](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220504003923986.png)
 
+使用相同的图片特征，怎么识别整幅图的场景呢？这里有一个例子叫做空间金字塔匹配。背后的思想是图片有各种特征，这些特征可以告诉我们图片是什么类型的，是风景，厨房，还是公路等等。这个算法从图片各部分和不同像素中抽取特征，并把他们放在一起作为特征描述符然后在特征描述符上做支持向量机。
+
+![image-20220504004759016](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220504004759016.png)
+
+还有一项类似的研究。把这些特征放在一起以后，研究如何在实际图片中比较合理地合成人体姿态，辨认人体姿态。这方面一个工作被称为方向梯度直方图，
+另一个被称为 可变性不见模型。
+
+![image-20220504004903196](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220504004903196.png)
+
