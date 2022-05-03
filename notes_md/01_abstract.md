@@ -52,3 +52,7 @@
 
 ![image-20220504003033708](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220504003033708.png)
 
+还有另一个问题先于其他的计算机视觉问题有进展，那就是**面部检测**。大概在 1999-2000年，机器学习技术 ，特别是统计机器学习方法开始加速发展。出现了一些方法，比如支持向量机模型，boosting 方法，图模型，包括最初的神经网络。Paul Viola 和 Michael Jones 使用AdaBoost 算法进行实时面部检测。这项工作是在计算机芯片还是非常慢的2001年完成的，但是他们还是能够实现准实时的面部检测。在论文发表的第5年，也就是2006年，富士推出了第一个实现实时面部检测的数码相机。这是从基础科学研究到实际应用的一个快速的转化。
+
+![image-20220504003433742](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220504003433742.png)
+
