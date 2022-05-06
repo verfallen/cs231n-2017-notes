@@ -105,3 +105,25 @@
 ## 图像摘要
 
 **图像摘要就是给定一幅图像，生成一段句子来描述这幅图像。**这看起来与图像分类完全不同，但是为了图像识别而开发的工具也可以在这里用到。
+
+# 大规模视觉识别比赛
+
+前面已经在图像数据集部分已经提过 ImageNet，在这个比赛上获得优胜的都是算法中的佼佼者。
+
+2011年 提出的算法中，包含了很多分层。首先计算一些特征，然后计算局部不变特征，经过一些池化操作再经过多层处理，最终将结果描述符传递给线性 SVM。
+这里仍然使用了层次结构，仍然检测边界，有不变特征的概念。
+
+![image-20220506230659744](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220506230659744.png)
+
+2012年提出的算法实现了真正的突破。来自多伦多大学的 Jeff Hinton 小组和他当时的博士生Ale Krizhevsky和Ilya Sutskever共同创造了这个七层卷积神经网络，现在以AlexNet 而闻名，那时也被叫做Supervision。从那年开始所有ImageNet的获胜者都被神经网络包揽了。而且这些网络的发展趋势是越来越深。AlexNet 这个神经网络有七或八层，取决于需要计算的精确度。
+
+![image-20220506231255213](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220506231255213.png)
+
+2014年我们有了一些更深的网络，它们是来自Google 的GoogleNet 和 来自牛津大学的VGG网络。
+
+![image-20220506231546743](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220506231546743.png)
+
+2015 年优胜的算法网络更深，它被称作残差网络有152层。从此以后只要能将层数加到200 以上，性能总能得到一点提高。不过也有可能造成 GPU 内存溢出。
+
+![image-20220506231627619](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220506231627619.png)
+
