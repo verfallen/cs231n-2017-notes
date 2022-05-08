@@ -18,7 +18,7 @@ LeNet可以看作是卷积网络的第一个实例，并且在实际应用中取
 
 下图就是 LeNet 的结构，输入一个图片，使用步长为1大小为5x5的卷积核，接下来重复卷积和池化操作，最后有一些全连接层。LeNet在数字识别领域的应用方面取得了成功
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204221352033.png" alt="image-20220422135217947" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204221352033.png" alt="image-20220422135217947" style="zoom:67%;" />
 
 # AlexNet
 
@@ -26,7 +26,7 @@ AlexNet是第一个在 ImageNet 的分类比赛中获得成功的大型卷积神
 
 下图是**AlexNet 的基础架构**：卷积层，池化层，归一化层，卷积，池化，归一化层然后是三个卷积层一个池化层，最后是三个全连接层。它看上去和 LeNet 很相似，区别在于总层数变多了，卷积层达到了五层，在最后的全连接层输出分类之前，多了两层全连接层。
 
-![image-20220422144714052](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204221447154.png)
+![image-20220422144714052](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204221447154.png)
 
 ## 详解AlexNet 架构
 
@@ -88,7 +88,7 @@ AlexNet是第一个在 ImageNet 的分类比赛中获得成功的大型卷积神
 AlexNet是2012年 ImageNet 分类问题的冠军，比起2011年，错误率上有很大降低。这是第一次基于 CNN 的冠军，后来，它被转换成不同的版本适用不同的任务
 ，应用了很长一段时期。
 
-![image-20220423195655451](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220423195655451.png)
+![image-20220423195655451](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220423195655451.png)
 
 2013 年的 ImageNet 比赛中，优胜者是 **ZFNet**，它与用于与AlexNet 相同的层数，相同的基本结构，只是基于AlexNet 上进行了改动。
 
@@ -97,7 +97,7 @@ AlexNet是2012年 ImageNet 分类问题的冠军，比起2011年，错误率上�
 1. 改变了第一个卷积层卷积核的大小及步长，AlexNet 使用 11\*11，步长为4的卷积核，ZFNet 使用 7\*7,步长为2的卷积核。
 2. 改变第3,4,5个卷积层的卷积核数目，分别使用 512,1024,512 代替原本AlextNet 的384,384,256 。
 
-![image-20220423200140078](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220423200140078.png)
+![image-20220423200140078](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220423200140078.png)
 
 ## 
 
@@ -111,7 +111,7 @@ AlexNet是2012年 ImageNet 分类问题的冠军，比起2011年，错误率上�
 
 仔细比较一下VGG与AlexNet 网络的结果会发现，**二者使用同样的方式来组织架构的，不同的是VGG 有用更多的卷积层。**对 VGG16 而言就有16层，VGG19 也是非常相似的架构，只是有更多的卷积层。
 
-![image-20220423203103043](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220423203103043.png)
+![image-20220423203103043](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220423203103043.png)
 
 **<u>Q：为什么使用最小的卷积核？</u>**
 
@@ -130,7 +130,7 @@ A：通常例子中的更深是指层数，深度有两个用法，一个是通�
 
 网络内存的使用是**一次前向传播计算所占的内存量**。下图是一次输入在VGG网络中所使用的内存情况和参数数量，一个图片需要占用大约96M的内存，网络参数达到了138M。 经过观察，可以发现**大多数内存使用在前面的卷积层，大量的参数在后面的全连接层里**。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204241813815.png" alt="image-20220424181305118" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204241813815.png" alt="image-20220424181305118" style="zoom: 50%;" />
 
 ## 关于VGG的其他内容
 
@@ -163,11 +163,11 @@ GoogleNet 是图像识别大赛中的另外一个优胜者，它是**一个进�
 
 面对来自前一层的输入，进行不同的卷积。图中有1×1卷积，3×3卷积，5 X5 卷积，然后也有池化操作，用一个3x3 的池化。然后就**在不同的层里得到不同的输出，之后将所有卷积的输出在深度层面上串联在一起得到一个张量输出**，这个张量会进入下一层。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204241852629.png" alt="image-20220424185236513" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204241852629.png" alt="image-20220424185236513" style="zoom: 67%;" />
 
 在一个实际的例子中来看看。比如用128个1×1的卷积核，192个3×3卷积核卷积，96个5x5卷积核卷积，假设所有的步长保持一致，然后输入进来之后，会得到的输出是下图这样（黑色字代表操作的规模，框外的蓝色字体代表输出的规模）。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204241905747.png" alt="image-20220424190524614" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204241905747.png" alt="image-20220424190524614" style="zoom:67%;" />
 
 从深度层面上叠加，最终的规模是 28x28x672。其中 672 是 128+192+96+256 的结果。综上，我们inception 模块的输入是28×28×256，经过不同的卷积核处理后输出是28x28x672。
 在原始的inception模块，我们保留了相同的尺寸然后扩充了深度。
@@ -193,7 +193,7 @@ A：这个256 并不是神经网络的输入，只是针对当前的模块而言
 
 先解释下**瓶颈层**，为了减轻昂贵的计算，**在3x3和5x5卷积层之前，和池化层之后，加入一个1x1 的卷积层**，这个多出来的 1x1 的卷积层就是添加进来的瓶颈层。
 
-![image-20220424192653841](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204241926984.png)
+![image-20220424192653841](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204241926984.png)
 
 那具体是如何降维的？加入了64个 1x1 的卷积核 来减少深度，此时输出是28x28x64。所以现在进入3x3 卷积层和5x5 的卷积层的输入都是28x28x64。在池化层，是先进行池化，结束以后减小输出的深度。
 
@@ -208,7 +208,7 @@ A：这个256 并不是神经网络的输入，只是针对当前的模块而言
 
 总的运算量大概是3.58亿次 ，相比8.4亿次，已经大幅度减少了。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204241937656.png" alt="image-20220424193722542" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204241937656.png" alt="image-20220424193722542" style="zoom:50%;" />
 
 **<u>Q：一开始用1*1卷积去计算会丢失什么信息？</u>**
 A：结果可能会有一些信息丢失，但与此同时，使用具有冗余的输入特征映射的线性组合把它们组合在一起。也可以在1*1卷积之后，引入一个额外的非线性组合，这也有助于增加一点点深度。总的来说这个效果更好
@@ -227,7 +227,7 @@ A：结果可能会有一些信息丢失，但与此同时，使用具有冗余�
 
 这就是完整的架构，有22个有权重的层，在每个inception模型中，1\*1，3\*3，5\*5的卷积核组成一个权重层。这是个相对比较精心设计的架构，部分设计来源于inception，部分设计是来自谷歌的开发者，他们有巨大的集群可以交叉验证各种设计，使得最终运作良好。
 
-![image-20220425104543387](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251045633.png)
+![image-20220425104543387](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251045633.png)
 
 **<u>Q：瓶颈层(bottleneck 层)能不能使用其他的降维？</u>**
 A：可以，使用1\*1的卷积核的好处是：它是和其他层一样的卷积层，训练这些核心网络，就可以达到效果。
@@ -258,13 +258,13 @@ A：分类输出在最后，通过了整个链得到一个梯度。但当网络�
 
 ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅的网络更深的模型更难优化**。理由是，**从较浅的模型中找到那些学习的层，通过恒等映射，把这些拷贝到深的模型中，深的模型能够和一个浅的模型表现得一样好。**
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251125428.png" alt="image-20220425112510371" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251125428.png" alt="image-20220425112510371" style="zoom:67%;" />
 
 在这个解决方法的驱动下，思考如何使模型更高效地学习？ 
 **尝试并拟合残差映射代替拟合直接映射**
 下图右边就是它的原理，残差块的输入是原始传输进来的输入，我们使用层去拟合残差 H(X)-X 代替 H(x)。在这个块的最后，我们连接输入和最后的输出。将输入并作为一个不变的量传递，如果中间没有权重层，这个值它将是一直不变的。我们现在使用额外的权重层去学习 x 的残差，输出就变成原始的 x 加上残差。
 
-![image-20220425114000245](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251140300.png)
+![image-20220425114000245](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251140300.png)
 
 ## ResNet 结构
 
@@ -279,7 +279,7 @@ ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅�
 
 这就是完整的 ResNet 的结构，非常的简单和讲究。它只是把残差块互相堆叠，深度可以达到34，50，100层。在 Image Net比赛中尝试过152层。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251220254.png" alt="image-20220425122009189" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251220254.png" alt="image-20220425122009189" style="zoom:50%;" />
 
 ## 提高ResNet 计算效率
 
@@ -288,7 +288,7 @@ ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅�
 比如有一个28×28×256的输入，首先用1\*1的卷积核将其深度降低，得到64×28x28的数据输出。
 然后使用3\*3的卷积核操作，注意这里他们只使用一个 3\*3的卷积核，减少步数来使得它的代价更小。之后进行另一个卷积操作，使得它的深度能够恢复为原来的256 层。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251229450.png" alt="image-20220425122916403" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251229450.png" alt="image-20220425122916403" style="zoom: 50%;" />
 
 ## 一些训练细节
 
@@ -320,7 +320,7 @@ ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅�
 
 右图是计算复杂度的分类情况，Y轴表示精度，X轴是操作次数。圆形的半径表示内存的占用。可以看到，这些绿色的 VGG 算法是效率最低的，它们使用了最大的存储空间，最多的操作次数，但是效果确实很好。GoogleNet 在这里是最有效的，它的空间用量在算法训练的过程中一路下降，最终只使用了很小的内存空间，相对比较小规模的运算，特别高效。AlexNet 是早期模型，准确率是最低的，它是一个小的神经网络，内存占用比较大。ResNet 拥有中等效率，它在内存使用和操作复杂度之间实现了一种平衡，有着最高的准确率。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251331630.png" alt="image-20220425133107365" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251331630.png" alt="image-20220425133107365" style="zoom: 50%;" />
 
 ## 前向传播时间和耗电量比较
 
@@ -328,7 +328,7 @@ ResNet 的创造者假设，这实际上是一个优化问题，**相比于浅�
 
 右图展示了不同算法的耗电量。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251412125.png" alt="image-20220425141216338" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251412125.png" alt="image-20220425141216338" style="zoom:50%;" />
 
 # 其他的CNN架构
 
@@ -340,11 +340,11 @@ NiN 提出了一个 MIP 卷积层。
 + MLP 使用了多层感知机。
 + 它是GoogleNet 和 ResNet 中瓶颈层的前身
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251429497.png" alt="image-20220425142936356" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251429497.png" alt="image-20220425142936356" style="zoom:50%;" />
 
 NiN 的结构中将多个MIP层堆叠起来。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251434691.png" alt="image-20220425143416555" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251434691.png" alt="image-20220425143416555" style="zoom: 67%;" />
 
 ## 一些基于ResNet的改进
 
@@ -356,7 +356,7 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 + 实现一种更直接的路径，无需穿过整个网络，对恒等映射有更好的激活
 + 他们证明了这个模块的性能更好
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251442313.png" alt="image-20220425144228236" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251442313.png" alt="image-20220425144228236" style="zoom:50%;" />
 
 ### 更宽的残差网络
 
@@ -369,7 +369,7 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 
 这一论文中旨在比较宽度和深度以及残差连接所做的贡献。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455584.png" alt="image-20220425145517472" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251455584.png" alt="image-20220425145517472" style="zoom:50%;" />
 
 ### ResNexT 
 
@@ -378,7 +378,7 @@ ResNet 的作者2016年发布了论文 [Identity Mappings in Deep Residual Netwo
 + 为了解决宽度问题，在每个残差模块内建立多分支。这些分支被称为“基数”(cardinality )
 + 与inception 模块也有些相似，用了一些平行运算
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251455031.png" alt="image-20220425145542919" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251455031.png" alt="image-20220425145542919" style="zoom:50%;" />
 
 ### 使用随机深度
 
@@ -387,7 +387,7 @@ Deep Networks with Stochastic Depth
 当网络越来越深往往就会碰到梯度消失问题，因此作者的初衷就是在训练时让网络变得更“浅”。
 随机抛弃一组子层集，在测试阶段再使用完整的训练好的深度网络。这里的抛弃权重只把它们作为恒等连接，网络在训练时变得更短了，梯度可以更好地反向传播，也稍微高效一些。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251502931.png" alt="image-20220425150222845" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251502931.png" alt="image-20220425150222845" style="zoom:50%;" />
 
 ## 一些跟ResNet 媲美的网络
 
@@ -402,7 +402,7 @@ Deep Networks with Stochastic Depth
 + 通过抛弃子路径的方式来来训练，具有dropout 特色
 + 在测试的时候再使用整个分形网络，研究显示运行效果很不错
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251503771.png" alt="image-20220425150325456" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251503771.png" alt="image-20220425150325456" style="zoom: 50%;" />
 
 ### Dense CNN
 
@@ -416,7 +416,7 @@ Deep Networks with Stochastic Depth
 
 下面左图是一个Dense 块，右图是 Dense CNN 的结构。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251528813.png" alt="image-20220425152859690" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251528813.png" alt="image-20220425152859690" style="zoom:50%;" />
 
 ### SqueezeNet
 
@@ -428,7 +428,7 @@ Deep Networks with Stochastic Depth
 + 该网络在ImageNet 上能达到AlexNet 的准确率，参数却只有1/50
 + 整个网络被压缩为仅仅0.5 M，仅有 Alex Net的1/500
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204251535036.png" alt="image-20220425153541887" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204251535036.png" alt="image-20220425153541887" style="zoom:50%;" />
 
 如何有效压缩网络大小，这可以作为未来的方向。
 

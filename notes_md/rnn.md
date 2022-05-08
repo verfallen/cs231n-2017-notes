@@ -22,29 +22,29 @@
 
 这是我们之前最常看到的基础网络结构，**输入接受固定尺寸的对象**，比如一幅图片或者一个向量，通过隐层给出**单一的输出结果**，比如一个值，一个分类或者一组类别，叫做**香草（vanilla）前馈网络**。它的结构是一对一的。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261248455.png" alt="image-20220426124802065" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204261248455.png" alt="image-20220426124802065" style="zoom:50%;" />
 
 ## 一对多
 
 一对多的网络结构，**输入是固定尺寸的对象**，**输出是长度可变的序列**。比如图片描述就是这样一个任务。不同的描述可能造成单词量的不同，因此输出值的长度需要是一个变量。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261249913.png" alt="image-20220426124938883" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204261249913.png" alt="image-20220426124938883" style="zoom:50%;" />
 
 ## 多对一
 
 输入的尺寸是可变的，输出是固定的。比如输入一段文字，判断文字的情感属性是消极情感还是积极情感。或者在输入一个视频，整个视频的时间是不固定的，做出分类决策，判断视频中做了什么活动。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261254270.png" alt="image-20220426125411229" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204261254270.png" alt="image-20220426125411229" style="zoom:50%;" />
 
 ## 多对多
 
 输入和输出都是可变的，比如机器翻译，输入英文句子，输出法文句子，英语句子的长度可能与法语句子不同，因此需要模型能够同时容纳输入和输出的长度可变序列。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261256406.png" alt="image-20220426125606357" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204261256406.png" alt="image-20220426125606357" style="zoom:50%;" />
 
 另外还有一种，也是多对多，但是输入和输出的长度是相同的。例如一段有序的视频，帧数是一个变量，我们要对该序列中的每个元素做出决策，在输入是视频的情况下，对每一帧都做分类决策。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204261423504.png" alt="image-20220426142336472" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204261423504.png" alt="image-20220426142336472" style="zoom:50%;" />
 
 # RNN
 
@@ -58,7 +58,7 @@ RNN是**Recurrent Neural Networks，递归神经网络**的简称。
 在这一例子中，输入是图片，输出是分类决策。在这样的情况下
 利用 RNN 网络来处理长度可变的序列数据，也会形成一些有意思的模型。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271213135.png" alt="image-20220427121001478" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271213135.png" alt="image-20220427121001478" style="zoom:50%;" />
 
 
 
@@ -67,7 +67,7 @@ RNN是**Recurrent Neural Networks，递归神经网络**的简称。
 可以用 RNN 架构来绘制出这些输出图像，大约一次绘制一幅图像。虽然输出是固定尺寸的图像，我们可以让这些模型一直工作
 每次计算出一部分输出，这样就可以用 RNN来完成了。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271219098.png" alt="image-20220427121950821" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271219098.png" alt="image-20220427121950821" style="zoom:50%;" />
 
 ## 原始循环神经网络
 
@@ -75,7 +75,7 @@ RNN是**Recurrent Neural Networks，递归神经网络**的简称。
 
 每个 RNN 网络都有这样一个小小的**循环核心单元**，它把 x 作为输入，RNN 有一个**内部隐藏态(internal hidden state )**，这一隐藏态会在 RNN 每次读取新的输入时更新。当模型下一次读取输入时，内部隐藏态会反馈至模型 。因此，就有了这样的模式 ，**读取输入，更新隐藏态，并且生成输出。**
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271300899.png" alt="image-20220427130059858" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271300899.png" alt="image-20220427130059858" style="zoom:33%;" />
 
 用公式来表达的话，就是 
 $$
@@ -102,29 +102,29 @@ $$
 
 在第一时步，有初始隐层状态$h_0$，通常情况下$h_0=0$,有输入项 $x_t$，会被代入$f_W$ 函数中，计算得出下一个隐层状态$h_1$。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271434429.png" alt="image-20220427143433393" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271434429.png" alt="image-20220427143433393" style="zoom:33%;" />
 
 得到下一个输入项后，重复这个过程。将$h_1$和 $x_2$代入之前的方程$f_W$，得到新的输出项 $h_2$。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271437144.png" alt="image-20220427143756107" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271437144.png" alt="image-20220427143756107" style="zoom: 33%;" />
 
 这个过程将会不断重复，直到用完输入序列的输入项$x_t$。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271439242.png" alt="image-20220427143908187" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271439242.png" alt="image-20220427143908187" style="zoom: 33%;" />
 
 现在我们可以让这个过程更为清楚一些，将权重矩阵写在我们的计算流程图上。能看到在每个步长中，**使用相同的权重矩阵W**。这个$f_W$ 块，虽然每次接收不同隐藏态和不同的x，但使用相同的$W$ 权重。回想一下反向传播中的梯度流过程，在一张计算图中多次重复使用的相同节点，就在回溯过程中，不断地计算 $d loss/dw$，并最终把所有梯度值加到w 矩阵上。
 如果将反向传播的原理应用到这个模型中，你会得到在每一个时步下计算出的梯度。最终的w 梯度是所有时步下独立计算出的梯度之和。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271447278.png" alt="image-20220427144748230" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271447278.png" alt="image-20220427144748230" style="zoom:33%;" />
 
 同样可以直接把 $y_t$写在这张计算图上，这样每个计算步长下输出的$h_t$，作为输入给之后的神经网络，输出该时步下的$y_t$。
 $y_t$ 可以是每个时步的类别得分或是其他类似的东西。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271447190.png" alt="image-20220427144702128" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271447190.png" alt="image-20220427144702128" style="zoom: 33%;" />
 
 然后来看损失。在大多数情形下，每一个时步都有一个与输入序列对应的真实标签。这样就可以计算出每个时步下输出相对应的损失值，通常是`softmax` 损失之类。计算这样的损失，需要序列在每个时步下都有与之对应的真实标签。最终的损失值是这整个训练中这些单独的损失值的总和。得到每个时步的损失值，把它们加起来，就得到了最终的损失值。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271451110.png" alt="image-20220427145107030" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271451110.png" alt="image-20220427145107030" style="zoom:33%;" />
 
 为了训练这个模型，我们需要计算损失函数在 W 上的梯度。最终的损失值又会回溯到每一个时步的损失，然后每一个时步又会各自计算出在权重 $w$ 上的梯度。它们的总和就是权重$w$的最终梯度。
 
@@ -135,7 +135,7 @@ $y_t$ 可以是每个时步的类别得分或是其他类似的东西。
 
 一对多问题，接收固定长的输入项，输出不定长的输出项。之后这个固定长的输入项会被初始化为模型的初始隐层状态，递归神经网络会对输出的单元逐个进行处理，最终得到不定长的输出序列。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271454996.png" alt="image-20220427145452939" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271454996.png" alt="image-20220427145452939" style="zoom:33%;" />
 
 ### 多对多计算图
 
@@ -147,7 +147,7 @@ sequence to sequence 模型，比如机器翻译之类的问题。输入一个�
 
 对于不定长输入，在每一个时步下做出预测，比如预测接下来的用词。想象一下把整个训练过程的计算图展开，然后对输出序列的损失求和，像之前一样应用反向传播来训练这个模型。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204271500671.png" alt="image-20220427150048609" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204271500671.png" alt="image-20220427150048609" style="zoom:50%;" />
 
 ## 字符级的语言模型
 
@@ -161,13 +161,13 @@ sequence to sequence 模型，比如机器翻译之类的问题。输入一个�
 
 在这个例子中，因为单词是由四个字母h，e，l，o组成。用四维向量表示输入序列中的字母。因此，h,e，l，o 用向量可以表示为
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281348041.png" alt="image-20220428134802454" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204281348041.png" alt="image-20220428134802454" style="zoom: 50%;" />
 
 ### 训练阶段
 
 在第一个时步中，网络接收输入h，该输入项会进入到第一个RNN 单元内，之后输出$y_t$，即为网络对组成单词的每个字母做出的预测，也就是它认为接下来最可能出现的的字母。在这个例子，训练的字母序列是hello，那么下一个正确的字母应该输出e，但模型在做的只是预测认为 o 最有可能是下一个字母。这里预测结果就是错误的。可以使用 Softmax 损失函数来度量我们对这些预测结果的不满意程度。下个时步中，输入第二个字母e，重复执行这个过程。将e 表达为一个向量，利用这个新的输入向量以及之前计算出的隐层状态，生成输出一个新的隐层状态。再次做出预测，我们希望模型做出的预测将是 l，模型预测输出的是o，这时候高损失就出现了。不断重复上述过程，用不同的字母序列去训练这个模型，最终它将会学习到基于之前出现过的字符来预测接下来应出现的字符。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281359686.png" alt="image-20220428135939617" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204281359686.png" alt="image-20220428135939617" style="zoom:50%;" />
 
 ### 测试阶段
 
@@ -180,7 +180,7 @@ sequence to sequence 模型，比如机器翻译之类的问题。输入一个�
 
 现在我们把顶端的字母 e 以one-hot 编码的向量形式重新输入到网络中，重复这个过程，生成并输出第二个字母。然后可以一次又一次地重复上述过程去生成一个序列。**该模型生成序列的过程是基于上一个时间步内预测得到的概率分布，在下一个时间步内生成一个新的字母。**
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281408228.png" alt="image-20220428140829162" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204281408228.png" alt="image-20220428140829162" style="zoom:50%;" />
 
 **<u>Q：为什么不是输出一个得分最高的字母？</u>**
 A：因为我们基于的是字母的概率分布图，在这种情况下不可能得到正确的字母。通过**采样**来解决这个问题。在实际中训练中，有时两者都会看到。可以选取概率最大的字母，这种方法有时会更稳定一些。但是一般来说softmax方法的一个优势在于它可以让你的模型输出结果多样化。模型可能有相同的输入，比如相同的前缀，或者在图像标注时使用相同的图像，如果使用概率分布代替得分最大的，训练模型可以产生多组不同类型的合理的输出序列。这取决于第一个时间步中的样本，这实际上是一个优点，因为输出结果更加多样了。
@@ -192,7 +192,7 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 
 **假设有一个序列，每个时间步产生一个输出结果，最后计算一些损失值，这就是沿时间的反向传播方法。**在前向传播过程中，沿着时间做前向计算，然后在反向传播过程中，是逆着时间反向计算所有的梯度。这个过程实际上有些麻烦。如果想要训练一个很长的序列，比如我们要训练一个基于维基百科里所有文本的神经网络语言模型，计算过程非常耗时。每次我们计算梯度时，必须做一次前向计算，遍历维基百科的所有文本，然后反向传播每次也会遍历所有文本，并重新计算一次梯度。这个过程非常缓慢，所以模型很难收敛，并且占用非常大的内存。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281458836.png" alt="image-20220428145812802" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204281458836.png" alt="image-20220428145812802" style="zoom: 67%;" />
 
 ### 截断沿时间反向传播
 
@@ -202,7 +202,7 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 
 当我们在讨论基于大规模数据集训练模型时，使用数据集中所有样本来计算梯度开销非常大，可以抽取一小部分样本然后用小样本集的数据来计算。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204281529462.png" alt="image-20220428152946408" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204281529462.png" alt="image-20220428152946408" style="zoom:67%;" />
 
 [这里](https://gist.github.com/karpathy/d4dee566867f8291f086)是实现字符级的RNN模型的一个例子。仅仅使用了112 行 Python 代码，能处理并构建词汇。它使用截断沿时间反向传播算法来训练网络模型，
 然后计算样本的输出。
@@ -215,7 +215,7 @@ A：一般不这样做，因为如果在训练时使用softmax向量代替通常
 
 可以看出在训练的初始阶段，产生的是毫无意义的内容。随着整个训练过程的进行，最终产生相对能理解的内容。在模型已经被训练得非常好之后，它会生成一些看起来非常有莎翁风格的文章。如果再继续训练下去进一步收敛，然后对一些长句子采样，它看上去真的像一部莎翁的戏剧。这仅仅是从莎士比亚文本的结构中学到的东西。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220429235403743.png" alt="image-20220429235403743" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220429235403743.png" alt="image-20220429235403743" style="zoom:67%;" />
 
-![image-20220429235642844](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220429235642844.png)
+![image-20220429235642844](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220429235642844.png)
 

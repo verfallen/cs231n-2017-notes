@@ -8,7 +8,7 @@
 
 我们讨论了各种各样的激活函数。我们看到，大概在10年前，sigmoid 激活函数曾经在训练神经网络方面十分流行，但是存在梯度消失的问题。tanh 函数也存在类似的问题。对于这样的问题一般的建议是你可能想要在大多数情况下，把Relu 函数作为默认的激活函数。因为它在不同的框架下都能够运行的很好。
 
-![image-20220412184855745](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121848814.png)
+![image-20220412184855745](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121848814.png)
 
 ## 权重初始化
 
@@ -22,23 +22,23 @@
 
 我们讲过，在卷积神经网络中，中心化和归一化是非常常用的手段。它会使数据分布均值为1，方差为0。
 
-![image-20220412184933962](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121849059.png)
+![image-20220412184933962](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121849059.png)
 
 我想在直观的讲一下这样做的原因：举一个简单的例子，我们要通过二元分类的方法分离这些红色和蓝色的点，从左边的图来看，如果数据点没有被归一化和中心化，而且距离坐标原点很远，虽然我们仍然可以用一条直线分离它们，但是如果这条直线稍微转动一下，那么我们的分类器将被完全的破坏。这意味着，在左边的例子中，loss 对我们的权重矩阵中的线性分类器的小波动非常敏感。我们仍然可以表示相同的函数，但是这会让深度学习异常艰难。因为它们的损失对我们的参数向量非常敏感。
 
 而在右边的情况下，如果你使用数据集的时候，将数据点移动到原点附近，并且缩小它们的单位方差，我们仍然可以很好地对这些数据进行分类。但当我们稍微转动直线时，损失函数对参数值中的小波动就不那么敏感了。这可能使得优化变得更容易一些的同时，能够看到一些进步。而且，这种情况不仅仅在线性分类中遇到。记住，在神经网络中我们需要交叉地使用这些线性矩阵相乘或者卷积，还有非线性激活函数。如果神经网络中某一层的输入均值不为0或者方差不为1，该层网络权值矩阵的小波动就会造成输出的巨大波动，从而造成学习困难。所以，这就直观的解释了为什么要归一化。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121849323.png" alt="image-20220412184948257" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121849323.png" alt="image-20220412184948257" style="zoom: 50%;" />
 
 还要记住，因为我们了解归一化的重要性，所以引入了Batch normalization 的概念。即在神经网络中加入额外一层，以使得中间的激活值均值为0，方差为1。在这里，我通过更直观的形式总结了Batch Normalization 的方程。在batch normalization 中，正向传播的过程，我们使用小批量数据计算平均值和标准差，并使用这个估计值来对数据进行归一化。之后我们还介绍了缩放参数和平移参数增加层的可表达性。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121850405.png" alt="image-20220412185009320" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121850405.png" alt="image-20220412185009320" style="zoom: 50%;" />
 
 ## 跟踪学习过程
 
 上次我们还介绍一部分跟踪学习过程，比如在训练过程中，如何观察损失曲线。以下是一些神经网络的例子，这是我在周末实际训练过过程中发现的。这通常是我在研究问题中的一些例行公事。
 
-![image-20220412185054027](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121850126.png)
+![image-20220412185054027](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121850126.png)
 
 左侧是随时间变化的损失函数曲线，你可以看到曲线多多少少是下降的。说明神经网络的损失在下降，这是一个好的信号。右侧曲线，x轴同样是训练时间或者迭代次数，y轴表示模型在测试集和验证集上的效果。你会发现，随着时间增加，训练集上的效果随着损失的下降到某一点之后不再上升。这说明模型进入了过拟合状态，这时候就需要加入其他的正则化手段。
 
@@ -46,7 +46,7 @@
 
 所有这些神经网络都涉及到大量的超参数，找到正确的参数十分重要。我们讲到了**网格搜索**，以及**随机搜索在理论上的优越性**在哪里。因为当你的模型性能对一个参数比对其他超参数更敏感时，随机搜索可以对超参数空间覆盖地更好。我们还介绍了==**粗细粒度交叉搜索==**，当你做超参数优化时，一开始可以会处理很大的搜索范围，几次迭代之后，就可以缩小范围，圈定合适的超参数范围。然后再对这个小范围，重复上述步骤，以获得超参数正确的区域。另外很重要的一点是，一开始你要确定超参数粗略的范围，这个范围要非常宽，覆盖你所有的超参数。理想情况下，范围应该足够宽到你的网络不会超过范围的任意一边。这样你就知道自己的范围足够大。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121851181.png" alt="image-20220412185104054" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121851181.png" alt="image-20220412185104054" style="zoom: 67%;" />
 
 Q：通常一次搜索几个超参数
 
@@ -76,21 +76,21 @@ A：直觉上是可能的，但实际上并不是。我们今天会讨论这个�
 
 记住我们已经使用过最简单的优化算法-SGD，它非常简单，只有三行代码。我们首先评估一下小批量数据中损失的梯度，然后向梯度的负方向更新参数向量。因为它给出了损失函数下降最快的方向，然后重复这个过程。幸运的化，它在红色区域收敛，我们如愿得到很小的误差值。遗憾的是，这个相对简单的优化算法在实际使用中会产生很多的问题。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121851753.png" alt="image-20220412185115633" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121851753.png" alt="image-20220412185115633" style="zoom: 50%;" />
 
 ## SGD存在的问题
 
 SGD 的问题之一 ：想象一下我们的目标函数发生了什么，就像这样，我们画两个值，W_1 和W_2 ，当我们在水平方向上改变值，损失函数变化非常慢、当我们在等高线上下方向运动时 ，损失值则对垂直方向的变化非常敏感。对于损失值来说，在这一点上是很坏的情况。在这一点，它是海森矩阵中最大奇异值与最小奇异值之比。但是直观来看，损失值等高线图就像是一个玉米卷饼，它在一个方向上非常敏感，而在其他方向上不敏感。问题是对于一个像这样的函数，SGD会做什么？如果你在这类函数行运行SGD，就会的得到下图这样的之字图形。这是因为这类目标函数梯度的方向并不是与最小值成一条线，当你计算梯度并沿着前进时，你可能一遍遍跨过等高线，之字形地前进或后退，所以你在水平方向上前进速度非常慢，在这个方向上敏感度较低。但是在非常敏感的垂直维度上， 对水平方向梯度不敏感，这并不是我们所希望的，而且，事实上，这个问题在高维空间变得更加普遍。在这里，我们只展示了两维优化等高线图，在神经网络中，可能存在上百万甚至上亿个参数。它会沿着上亿个方向进行移动，在不同的运动方向上，介于最大值和最小值的方向上的比例很高，SGD的表现并不好。你可以想象一下，我们有上亿个参数，在它们两者之间的最大比例可能很大，因此，我认为在多维问题中，这是一个大问题。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121851197.png" alt="image-20220412185125097" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121851197.png" alt="image-20220412185125097" style="zoom: 33%;" />
 
 SGD的另一个问题是局部最小值或鞍点。这里我把图形做小小改动，X轴显示参数的值，Y轴显示损失值。在上面的例子中，我们有这类函数的目标函数，在曲线中间有一段凹陷。这种情况下，SGD会卡在中间。因为那里是局部最小值，梯度为0，因为那一段是平的。还记得SGD计算梯度，向着梯度相反的方向前进，在目前的点上，相反的梯度值为0，我们会被卡在这个为止。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121851945.png" alt="image-20220412185140914" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121851945.png" alt="image-20220412185140914" style="zoom: 33%;" />
 
 关于鞍点，还有另一个问题，相比于局部最小值，你可以设想在一点上，往一个方向是是向上，另一个方向是向下，在这种情况下，损失函数会被卡在鞍点。因为在这里梯度为0。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121851752.png" alt="image-20220412185157721" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121851752.png" alt="image-20220412185157721" style="zoom: 33%;" />
 
 我希望指出一点，在一维问题上，局部极小值看起来是个大问题，鞍点看起来并不需要担心。但是事实上，一旦涉及到高维问题恰好相反。想象一下一亿参数的空间，鞍点意味着在当前点上，某些方向的损失会增大，某些方向的损失会减小。如果维度是一亿，它会发生的更加频繁，几乎任何点上都会发生。然而在局部极小值点上，在一亿个方向上，任何一个方向前进损失都会变大，事实上，当你考虑这种很高维问题时，这种情况很稀少。这个问题时最近这几年在训练非常大的神经网路时才显示出来。问题更多的出现在鞍点上，局部最小值问题少一点。不过，有时问题并非恰好在鞍点上，也可能在鞍点附近。如果你看看鞍点附近，就可以看见鞍点附近梯度并不是0，但是斜率非常小。这意味着如果我们向梯度方向前进，而梯度非常小，任何时候当当前参数值在目标等高线图上 接近鞍点时，进展会非常缓慢。
 
@@ -100,7 +100,7 @@ SGD的另一个问题是随机性。SGD是随机梯度下降，回忆一下，�
 
 加入均匀噪声后，训练轨迹如下：
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121852815.png" alt="image-20220412185208720" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121852815.png" alt="image-20220412185208720" style="zoom: 33%;" />
 
 Q：如果我们使用正常的梯度下降，这些问题都会消失吗？
 
@@ -112,13 +112,13 @@ A：如果在全量梯度下降中加入噪声，噪声，像我们看到的一�
 
 为了解决上述的问题，我们在SGD中加入一个动量项。 下图左侧是经典的SGD，只在梯度方向上前进。但在右侧，有一个非常小的方差，称之为带动量的SGD。思想是，保持一个不随时间变化的速度，并且把梯度估计加到这个速度上。然后再速度的方向上前进，而不是在梯度的方向上前进。这里出现了一个代表摩擦系数的超参数 $\rho$ 。之后的每一步，我们采用当前的速度，然后用摩擦系数$\rho$  来对其进行衰减，再加到梯度上。($\rho$经常取值较大，通常选择0.9）这个简单的策略可以解决上述所说的局部最小值和鞍点问题。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121947645.png" alt="image-20220412194739582" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121947645.png" alt="image-20220412194739582" style="zoom:50%;" />
 
 那么在局部最小值点或者鞍点发生了什么，可以想象这个系统中的速度就像是一个球滚下山，他会在下降时加上速度。一旦加上速度，在通过局部最小点时虽然没有梯度，仍然还有速度，就能越过当前局部最小点。在鞍点处也是如此，虽然鞍点附近的梯度非常小，但我们还有下山时就建立起来的速度向量。这能够帮助球通过鞍点，并且继续滚动下去。
 
 让我们思考一下，如果在曲折的梯度附近会发生什么? 一旦使用动量，这些之字形的曲折就会互相抵消，这能够有效减少我们朝敏感方向前进步数的数量。而在水平方向上，速度会不端增加，在其他不敏感的维度上，速度会加速下降。因此添加动量，实际上能够帮助处理高条件数的问题。下图中，下图重现了带有噪声的梯度下降过程，黑色的曲线代表常规的SGD，蓝色的曲线代表带有动量的SGD。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121940880.png" alt="image-20220412194030784" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121940880.png" alt="image-20220412194030784" style="zoom:33%;" />
 
 Q： SGD动量如何处理条件很差的坐标
 
@@ -126,7 +126,7 @@ A：回顾下速度估计和速度计算，就会发现我们在每一步都增�
 
 当我们在使用带有动量的SGD时，可以这样想象，红色的点是我们的当前为止，红色的向量表示梯度的方向，绿色向量是速度向量的方向，当我们做动量更新时，实际上我们是根据两者的平均权重进行步行。这有助于克服梯度估计中的一些噪声。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204121951864.png" alt="image-20220412195158832" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204121951864.png" alt="image-20220412195158832" style="zoom: 50%;" />
 
 ## Nesterov 动量
 
@@ -139,7 +139,7 @@ A：回顾下速度估计和速度计算，就会发现我们在每一步都增�
 
 Nesterove 动量等式如下图。更新速度的步骤如下：我们根据之前的速度来前进一步，然后计算此处的梯度，当我们前进下一步时，实际上是在速度的方向上步进。这就是从多个点合井信息。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131345844.png" alt="image-20220413134525811" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131345844.png" alt="image-20220413134525811" style="zoom:50%;" />
 
 Q：一个速度应该怎么初始化才算好？
 
@@ -154,7 +154,7 @@ Nesterove 公式有一点不方便，因为当你在使用 SGD 法优化神经�
 我们计算当前点的速度和梯度，并且将两者用相减的方式混合。
 在第二步中我们实际上在更新我们的参数向量，看第二个等式，我们用当前点参数向量加上当前速度再加上一个权重化的这一次的速度和上一次速度的差。这里我们可以说 Nesterov 动量包含了当前速度向量和先前速度向量的误差修正。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131344132.png" alt="image-20220413134444077" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131344132.png" alt="image-20220413134444077" style="zoom:33%;" />
 
 ## SGD，SGD+动量 和 Nesterov 效果
 
@@ -162,7 +162,7 @@ Nesterove 公式有一点不方便，因为当你在使用 SGD 法优化神经�
 而代表动量优化法和 Nesterov 动量法的蓝线和绿线会借着他们构建的速度从而越过局部极小点。
 因此这两种方法能自我修正，从而到送真正的极小值点。二者的一处不同就是，由于 Nesterov 有校正因子的存在，与带动量的SGD相比它不会那么剧烈的越过局部极小值点。（在图中的表现是绿色的线在越过局部极小值时曲线更加平滑）
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131354561.png" alt="image-20220413135430455" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131354561.png" alt="image-20220413135430455" style="zoom: 33%;" />
 
 Q： 这个图看起来很不错，但是如果实际情况是如果你的局部极小点在一个非常窄的盆地里呢，上面两种优化方法带来的速度能否让你越过这个局部极小点？
 
@@ -175,13 +175,13 @@ A：事实上这些非常极端的局部极值是所谓的坏点。我们的算�
 
  AdaGrad  是斯坦福教授 John Duchi 教授在他攻读博士期间提出的。**AdaGrad 的核心思想**是在优化的过程中，需要记录一个在训练过程中的每一步的梯度的平方和。与速度项不同的是，现在多了一个梯度平方和，在训练时 我们会一直累加当前的梯度平方到这个梯度平方项。当更新参数向量时，我们会除以这个梯度平方项。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131414994.png" alt="image-20220413141428944" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131414994.png" alt="image-20220413141428944" style="zoom:67%;" />
 
 <u>**对于矩阵中条件数很大的情形，AdaGrad有什么改进呢?**</u>
 如果我们有两个坐标轴,沿其中一个轴我们有很高的梯度,而另一个轴方向却有很小的梯度。随着我们累加小梯度，从而加速了在小梯度维度上的学习速度。在另一个维度方向上，由于梯度变得特别大，
 我们会除以一个非常大的数从而降低这个维度方向上的训练进度。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131431660.png" alt="image-20220413143122576" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131431660.png" alt="image-20220413143122576" style="zoom: 33%;" />
 
 **<u>当t (时间)越来越大的时候，在训练的过程中使用 Ada Grad会发生什么?</u>**
 
@@ -201,7 +201,7 @@ A：事实上这些非常极端的局部极值是所谓的坏点。我们的算�
 然后用1减去衰减率乘以当前梯度的平方和，再加上之前的结果。
 随着训练的进行可以知道，步长和 Ada Grad 一样会有一个良好的性质。在一个维度上(梯度下降很慢的)训练会加快，而在另一个维度方向上训练减慢。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131441739.png" alt="image-20220413144144663" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131441739.png" alt="image-20220413144144663" style="zoom:50%;" />
 
 由于梯度平方估计被衰减了，这有可能会造成训练总是一直在变慢。这可能不是我们想要的。
 在下图中可以看到 RMS Prop和带动量的 SGD效果都比单纯的 SGD 要好。但是它们在轨迹上有一点不同，带动量的 SGD 会先绕过最小值然后又拐回来，但是使用RMSProp 的话，它就一直在调整
@@ -210,14 +210,14 @@ A：事实上这些非常极端的局部极值是所谓的坏点。我们的算�
 减小的学习率就卡住了。在实际应用中- Ada Grad 可能不太会出现这种问题。这个比较对 AdaGrad
 不太公平。也许你需要在使用 Ada Grad -时提升学习率，然后它就可以表现得像 RMS Prop 那样好。但是通常来说在做神经网络训练时，我们倾向于不使用 Ada Grad。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131451111.png" alt="image-20220413145146002" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131451111.png" alt="image-20220413145146002" style="zoom: 50%;" />
 
 ## Adam 
 
 在动量中，我们有关于速度的概念。我们通过梯度的叠加得到速度，然后顺着速度的方向走。在 AdaGrad 和 RMS Prop 中我们有另一套方法，先求梯度平方的估计值然后除以梯度平方的累加值。
 这两种方法单独来看都不错，那么我们为什么不把它们结合到一起呢？也许那样效果会更好。这就引入了Adam 算法，或者说接近 Adam 的算法。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131507021.png" alt="image-20220413150719964" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131507021.png" alt="image-20220413150719964" style="zoom: 67%;" />
 
 使用 Adam 我们更新第一动量和第二动量的估计值，在红框里我们让第一动量的估计值等于我们梯度的加权和。第二动量的估计值等于梯度平方和的动态近似值，就像是AdaGrad 和 RMSProp中一样。接着来更新参数，使用第一动量（有点类似于速度）除以第二动量的平方根。
 **Adam 的思想看起来像动量加上第二个梯度平方**，合并了两者各自好的性质。
@@ -232,7 +232,7 @@ Adam 可能存在一些问题，这个问题就是在最初的初始化部分。
 
 为了避免这样的问题出现，我们改进一下Adam 的原始形式。**加入偏置校正项，构造无偏估计**，。在下图中，在更新第一动量和第二动量之后，通过使用当前时间步t来构造它们的无偏估计。在后续更新时，使用无偏估计代替原始的动量，这样就得到了 **Adam的完整形式**。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131627005.png" alt="image-20220413162717935" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131627005.png" alt="image-20220413162717935" style="zoom: 67%;" />
 
 <u>**Q：式子分母中的 $e^{-7}$是用来干吗的？**</u>
 
@@ -250,7 +250,7 @@ Adam 算法在一般情况下真的是首选。
 像 SGD 动量一样绕过太多。Adam 也有类似RMSProp的行为，尝试作出在所有维度上都相同的改进。
 也许在这个小的三维例子中，你可以看到Adam 收敛起来和其他算法一致。但是实质上它结合了 SGD 动量和 RMS Prop的特征。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131643677.png" alt="image-20220413164349565" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131643677.png" alt="image-20220413164349565" style="zoom:50%;" />
 
 <u>**Q： 还有哪些问题是Adam解决不了的？神经网络会不会仍然很大，仍然花费很长的时间来训练？**</u>
 
@@ -261,7 +261,7 @@ Adam 算法在一般情况下真的是首选。
 
 当你使用不同的学习率时，有时候太高了就会导致损失函数爆炸，如黄色的曲线。如果学习率很小，如蓝色的曲线，可能要花很长的时间才收敛。挑选正确的学习率确实需要点技巧。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131650093.png" alt="image-20220413165028040" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131650093.png" alt="image-20220413165028040" style="zoom:50%;" />
 
 
 
@@ -269,12 +269,12 @@ Adam 算法在一般情况下真的是首选。
 一个衰减的策略是**步长衰减**，比如在第10 万次送代时可以衰减一个因子然后继续训练。
 还有**指数衰减**，这种是训练时持续衰减。图中包含了学习率连续衰减的不同做法。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131653413.png" alt="image-20220413165330373" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131653413.png" alt="image-20220413165330373" style="zoom: 50%;" />
 
 如果你读论文特别是残差网络那篇论文，你会经常看到下图像这样的曲线。可以看到损失先一直下降，然后骤降再然后平坦，接着又骤降。这些曲线背后其实是他们在用**步长衰减的学习率**。
 损失曲线中出现骤降的地方就是在迭代时把学习率乘上了一个因子。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131657693.png" alt="image-20220413165705650" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131657693.png" alt="image-20220413165705650" style="zoom:50%;" />
 
 **降低学习率的想法**是说，假设模型已经接近一个比较不错的取值区域，但是此时的梯度已经很小了
 ，保持原有学习速率只能在最优点附近来回。如果我们降低了学习率，自标函数仍然能够进一步降低，即在损失函数上进一步降低。这个方法在实际中很有用，，不过值得指出的一点是，带动量 SGD 的学习率衰减很常见，但是像 Adam 的优化算法就很少用。
@@ -290,21 +290,21 @@ Adam 算法在一般情况下真的是首选。
 下图是自标函数曲线，当前点是这个红色的点。我们在这个点上，求一个梯度。我们用梯度信息来计算，这个函数的线性逼近，这个相当于是对我们的函数进行的一阶泰勒逼近。
 现在假设我们的一阶逼近就是实际的函数，然后我们想要迈出一步来找到逼近的最小值，但是这个逼近在稍大的区间内并不成立，所以我们不能朝那个方向一下走太多。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131721110.png" alt="image-20220413172150050" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131721110.png" alt="image-20220413172150050" style="zoom: 33%;" />
 
 ### 二阶优化算法
 
 其实我们可以使用二阶逼近，同时考虑一阶和二阶偏导信息。现在我们对函数做一个二阶泰勒逼近
 ，就是用一个二次函数来局部逼近我们的函数。因为是二次函数可以直接跳到最小值点，这就是二阶优化的思想。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131722528.png" alt="image-20220413172257457" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131722528.png" alt="image-20220413172257457" style="zoom:50%;" />
 
 ### 牛顿法
 
 当把这个思想推广到多维的情况就会得到一个叫做**牛顿步长**的东西。
 计算**海森矩阵**，即二阶偏导矩阵，接着求这个海森矩阵的逆，以便直接走到对损失函数用二次逼近后的最小值的地方。跟之前的更新规则比，这里没有学习率。至少在这个牛顿法的原始版本中不需要学习率，每次只需要直接走到最小的点就可以了。然而实际中，你可能也会用上一个学习率，因为这个二次逼近也不是完美的，你可能只是想要沿着二次函数最小值的方向前进，而不是走到最小值的位置。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204131907573.png" alt="image-20220413190726510" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204131907573.png" alt="image-20220413190726510" style="zoom:33%;" />
 
 对深度学习来说，使用海森矩阵有点不切实际。因为这个海森矩阵是 N* N的，其中 N 表示网络中参数的个数。如果 N 是一亿，那么N*N一亿的平方非常非常大.内存肯定是存不下的，也没办法求这个矩阵的逆。所以经常用拟牛顿法来替代牛顿法，不是直接地去求完整的 Hessian 矩阵的逆，而是去逼近这个矩阵的逆，常见的是低阶逼近。
 
@@ -317,7 +317,7 @@ Adam 算法在一般情况下真的是首选。
 
 再发挥一下创造力，有时候可以不用独立地训练不同的模型，你可以在训练的过程中，**保留多个模型的快照，然后用这些模型来做集成学习**。在测试阶段你仍然需要把这多个快照的预测结果做平均、但是你可以在训练的过程中收集这些快照。
 
-![image-20220413210325689](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220413210325689.png)
+![image-20220413210325689](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220413210325689.png)
 
 这里是这周 I CLR 会议上面一篇非常好的论文。这里我们用了一个疯狂的学习率计划，学习率开始时很慢，然后非常快~接着又很慢再然后又特别快。
 学习率计划的思想是，这样的学习率会使得训练过程中模型会收敛到目标函数不同的区域。如果你对这些不同的快照做集成以后就能够大幅提高最后的性能，虽然在这个过程中只进行了一次训练。
@@ -332,17 +332,17 @@ A：有时候它们并不是一样的。可以尝试不同尺寸的模型，不�
 
 另外可能会用到的一个小技巧是，在训练模型的时候，对不同时刻的每个模型参数，求指数衰减平均值。从而得到网络训练中一个比较平滑的集成模型。这个方法叫做**Polyak 平均数**。
 
-![image-20220413213118157](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/image-20220413213118157.png)
+![image-20220413213118157](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220413213118157.png)
 
 # 正则化
 
 如何提高单一模型的效果呢？**使用正则化**。正则化的思想是**在模型中加入一些成分来防止训练集上的过拟合，从而使测试集上的效果得到提升**。在前面已经经过几种正则化的方法，如下图所示，我们在损失函数上加入额外的一项（红框圈住的部分）。前面的一项是用来拟合数据，后面的一项是用来防止模型过拟合的，称为**正则项**。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141345442.png" alt="image-20220414134530394" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141345442.png" alt="image-20220414134530394" style="zoom:50%;" />
 
 常用的正则化方法如下：
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141347971.png" alt="image-20220414134745917" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141347971.png" alt="image-20220414134745917" style="zoom:50%;" />
 
 ## Dropout 
 
@@ -350,7 +350,7 @@ A：有时候它们并不是一样的。可以尝试不同尺寸的模型，不�
 
 对比下面的左右图，左图是全连接网络，右图是经过Dropout 的版本，可以发现，**经过 dropout 之后的网络就是同样的网络变小了一号，只用到其中一部分神经元**。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141354068.png" alt="image-20220414135413015" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141354068.png" alt="image-20220414135413015" style="zoom:67%;" />
 
 <u>**Q：我们把什么置为0？**</u>
 
@@ -364,33 +364,33 @@ A：一般在全连接层或者卷积层。但是在卷积层中使用 dropout�
 
 dropout 的代码实现非常简单，只需要两行。下图是一个三层的神经网络中实现 dropout 的实例。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141402706.png" alt="image-20220414140256626" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141402706.png" alt="image-20220414140256626" style="zoom:67%;" />
 
 ### dropout 为什么有用
 
 一个比较勉强的解释是，人们认为dropout 避免了特征间的相互适应。举例来说要在分类中判断是不是猫，可能在网络中，一个神经元学到了耳朵，一个神经元学到了尾巴，另一个学到了输入图像有毛，然后将这些特征组合起来判断。加入dropout  后，网络不是依赖将这些特征组合在一起给出结果，而是通过不同的零散特征来判断。这也许在某种程度上抑制了过拟合。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141412424.png" alt="image-20220414141212377" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141412424.png" alt="image-20220414141212377" style="zoom: 50%;" />
 
 另一个解释是，dropout 是在单一模型中进行的集成学习。观察经过dropout的网络，我们是在一个全连接网络的子网络中进行，也就是用全部神经元的子集进行运算。每一种可能的dropout 方式都可以产生一个不同的子网络。所以dropout 像是同时对一群共享参数的网络来进行集成学习。又因为 dropout 的可能性是随着神经元个数呈指数级增长的，你不可能穷举每种情况。这可以看做是一个超级无极大的网络集合在同时被训练。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141419485.png" alt="image-20220414141937411" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141419485.png" alt="image-20220414141937411" style="zoom: 50%;" />
 
 ### Test Time
 
 当使用了dropout ,我们把神经网络基本的运算都改变了，引入了一个额外$z$，代表在dropout中被随机置零的项。但是在测试时引入随机性可能不是一个好主意，想象一下你在Facebook工作，想要对用户上传的图片进行分类，今天分类器的判断是猫，明天也不是了，这就很糟糕。我们希望一个网络一旦被训练好了，在测试时能够消除这种随机性，我们就会想要将随机性进行平均。如果把它写下来，可以想象通过积分来边缘化随机性。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141533738.png" alt="image-20220414153358697" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141533738.png" alt="image-20220414153358697" style="zoom:50%;" />
 
 但在实际中，难以对积分求解。可以通过采样来逼近这积分。对z进行对此采样，然后再测试时将采样结果平均化。这仍然会引入一些随机性。
 
 在dropout 的情况下，可以使用更省事的方式来局部逼近这个积分。假设有这样一个神经元，$a=w_1 \cdot x + w_2 \cdot y$
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141537919.png" alt="image-20220414153710879" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141537919.png" alt="image-20220414153710879" style="zoom:33%;" />
 
 在训练时使用了dropout，丢弃神经元的概率是0.5。有4种可能的dropout掩码集合，通过将这4个掩码的集合进行平均，可以求出训练期间的期望值。可以看出，训练时的平均值只有测试的一半。因此，**在测试时，直接用dropout 的概率乘以这个输出**，期望值就相同了。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141535381.png" alt="image-20220414153628593" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141535381.png" alt="image-20220414153628593" style="zoom:50%;" />
 
 ### 总结
 
@@ -398,7 +398,7 @@ dropout 的代码实现非常简单，只需要两行。下图是一个三层的
 
 有一个小的tips，如果在测试时你很关心效率，想要测试更快，可以消除乘以p的这一做法，可以在训练时用整个的权值矩阵除以p。因为训练时发生在GPU上的，一个额外的乘法不算什么。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141550323.png" alt="image-20220414155033227" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141550323.png" alt="image-20220414155033227" style="zoom:50%;" />
 
 <u>**Q：dropout对梯度有什么影响？**</u>
 
@@ -408,7 +408,7 @@ A：我们只在未被丢弃的节点上传递梯度。当使用了dropout时，
 
 有一个通用的策略用来做正则化，**在训练期间我们给网络添加一些随机性，一定程度上扰乱网络，防止过拟合。测试的时候我们要抵消掉所有随机性，提高泛化能力。**dropout 就是这种通用策略的一个具体实例。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141613041.png" alt="image-20220414161345988" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141613041.png" alt="image-20220414161345988" style="zoom:50%;" />
 
 batch normalization 也具有这种思想。用batch normalization 做训练时，一个数据点和其他不同的数据点可能出现不同的小批量中。对于单个数据点来说，在训练过程中进行正则化具有随机性，但是在测试过程中我们通过使用基于全局估计的正则化来抵消掉这个随机性。实际上，batch normalization 倾向于具有和dropout类似的正则化效果，都具有这种通用的正则化策略的思想。
 
@@ -428,7 +428,7 @@ batch normalization 也具有这种思想。用batch normalization 做训练时�
 
 还有一种与*dropout 相关的算法叫做drop connect，但不是在每次正向传播中将激活函数置零，而是随机将权重矩阵的一些值置零。它们的效果是相同的。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141659628.png" alt="image-20220414165904578" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141659628.png" alt="image-20220414165904578" style="zoom:50%;" />
 
 ## 分数阶最大池化 Fractional Max Pooling
 
@@ -436,14 +436,14 @@ batch normalization 也具有这种思想。用batch normalization 做训练时�
 下图中展示了3个不同的在训练时可能遇到的随机池化区域。
 测试时，有很多方法可以抵消随机性。比如使用一些固定的池化区域，或者选取很多样本对它们取平均。这种想法很好，但不常用。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141706463.png" alt="image-20220414170620379" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141706463.png" alt="image-20220414170620379" style="zoom:50%;" />
 
 ## 随机深度 Stochastic Depth
 
 如图所示，我们有一个很深的网络。**在训练时，我们随机的从网络中丢弃部分层，在测试的时候我们用全部层**。
 在实际操作的时候并不常用，但它的想法不错。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204141710532.png" alt="image-20220414171038489" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204141710532.png" alt="image-20220414171038489" style="zoom: 50%;" />
 
 **<u>Q：你经常使用超过1 个的正则化方法么</u>**
 
@@ -465,13 +465,13 @@ A：通常使用 batch normalization，它是一个现在大多数网络使用�
 
 3. 如果你有更多的数据，你可以更新网络的更大一部分。一个通用的策略是将学习率调低（原始的学习率的1/10）。因为最初的网络参数可能是在ImageNet 上已经收敛的，泛化能力已经很强了。你只希望让它们有微小的调整来适应你的数据集。
 
-![image-20220414202816015](https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204142028099.png)
+![image-20220414202816015](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204142028099.png)
 
 使用迁移学习时，如果你的数据和一些大数据集的图片很相似，但是你的数据量很少。例如ImageNet 有很多动植物之类的图片，你只是想给动物植物或者其他类别的图片分类。那就很好办了。**你可以在ImageNet 上预训练模型，然后在此基础上只训练最后一层线型分类器。**如有更多的数据可以微调一下模型。
 
 如果你的数据没有与其相似的大数据集，比如你要处理X光或者CT图像，可能需要加上一点创造力。你可以考虑重新初始化大部分的网络，多做一些实验。在数据量比较大的情况下，这种方法不错，因为你可以精调大部分网络。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204142045296.png" alt="image-20220414204553228" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204142045296.png" alt="image-20220414204553228" style="zoom:50%;" />
 
 ## 迁移学习思想的普遍性
 
@@ -480,7 +480,7 @@ A：通常使用 batch normalization，它是一个现在大多数网络使用�
 **大多数情况下，在 Image Net 上预训练然后根据任务精调。**同样的，在图像加标的环境下有时候可以预先训练一些和一些语言相关的词向量。你可以在 Image Net 上预训练卷积神经网络，在一些文本字典上预训练一些词向量。然后针对你的网络精调，不过在加标任务中预训练词向量的方法不太常见。
 要记住，对于你要处理的问题，没有大数据集，你应该做的事是下载一些相关的预训练的模型，然后，重新初始化部分模型或者在你的数据上精调模型。这是一个很普遍的策略。
 
-<img src="https://raw.githubusercontent.com/verfallen/cs231n-2017-notes/main/img/202204142059108.png" alt="image-20220414205944995" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/202204142059108.png" alt="image-20220414205944995" style="zoom:50%;" />
 
 在所有不同的深度学习软件包上都提供模型库，在这里可以下载不同模型的预训练版本。
 
