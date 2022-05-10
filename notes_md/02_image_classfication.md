@@ -66,3 +66,9 @@
 
 ![image-20220510115921590](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220510115921590.png)
 
+# 最近邻
+
+最简单的分类器也许是**最近邻方法，在训练机器过程中什么也不做，只是单纯记录所有的训练数据。在图片预测过程中，接收新的图片，在训练数据中寻找与新图片最相似的，然后基于此来给出一个标签。**
+
+![image-20220510120410943](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220510120410943.png)
+
