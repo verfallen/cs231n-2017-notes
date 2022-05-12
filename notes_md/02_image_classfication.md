@@ -72,6 +72,12 @@
 
 ![image-20220510120410943](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220510120410943.png)
 
+## 示例
+
+以CIFAR 10 数据集为例，这个数据集给出10个不同的类别，有50000张训练图片，10000张测试图片。在这个数据集上使用最近邻分类器，下图给出与测试图片最相似的图片。可以看到，分类的效果不太好，但它仍然是一个好的示例。
+
+![image-20220512094611737](https://github.com/verfallen/gallery/blob/master/cs231n-2017-notes/image-20220512094611737.png?raw=true)
+
 ##  测量图片的距离
 
 ### L1 距离
