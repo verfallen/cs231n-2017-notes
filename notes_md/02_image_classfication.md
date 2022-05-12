@@ -169,6 +169,10 @@ K近邻算法，根据距离度量，找到最近的 K个点。然后用这些�
 
 ![image-20220512105331573](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220512105331573.png)
 
+经过交叉验证，可以得到下图。x 轴表示K近邻分类器中参数 K 的值， y轴表示不同 K在相同数据上的准确率。这个例子里我们用了5 折交叉验证，可以观察到算法在不同验证集上表现的方差，还能看到算法效果的分布。在这个例子中，k=7 时效果最好。
+
+![image-20220512111822002](https://raw.githubusercontent.com/verfallen/gallery/master/cs231n-2017-notes/image-20220512111822002.png)
+
 ## 提问
 
 **<u>Q：训练集和验证集的区别是什么?</u>**
